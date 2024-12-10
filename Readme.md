@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Anna Korobkova](https://up.htmlacademy.ru/react-individual/3/user/1794343).
-* Наставник: `Неизвестно`.
+* Наставник: [Олег Глущенко](https://htmlacademy.ru/profile/id305355).
 
 ---
 
