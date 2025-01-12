@@ -1,8 +1,12 @@
+import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 
 function Favorites(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities. Favorites</title>
+      </Helmet>
       <Header/>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
