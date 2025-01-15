@@ -1,7 +1,7 @@
 export const OFFERS_COUNT = 3655;
 
 export enum AppRoute {
-  Main = '/',
+  Root = '/',
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',

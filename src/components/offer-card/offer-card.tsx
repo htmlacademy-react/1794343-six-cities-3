@@ -1,12 +1,22 @@
+import { Link, useLocation } from 'react-router-dom';
+import { AppRoute } from '../const';
+import { getOfferCardState } from './util';
+
 function OfferCard(): JSX.Element {
+  const {pathname} = useLocation();
+  const {className, classNameInfo, width, height} = getOfferCardState(pathname as AppRoute);
+
   return (
-    <article className="cities__card place-card">
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className={`${className}__card place-card`}>
+      <div className="place-card__mark">
+        <span>Premium</span>
+      </div>
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src="img/room.jpg" width={width} height={height} alt="Place image"/>
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${classNameInfo}place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;80</b>
@@ -26,7 +36,7 @@ function OfferCard(): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Wood and stone place</a>
+          <Link to={AppRoute.Offer}>Wood and stone place</Link>
         </h2>
         <p className="place-card__type">Room</p>
       </div>
