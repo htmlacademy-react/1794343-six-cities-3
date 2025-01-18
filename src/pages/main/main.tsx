@@ -1,14 +1,16 @@
-import OfferCard from '../../components/offer-card';
+import { OfferType } from '../../components/offer-card/types';
+import OffersList from '../../components/offers-list/offers-list';
 
 type MainProps = {
   offersCount: number;
+  offers: OfferType[];
 }
 
 const cities = [
   'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'
 ];
 
-function Main({offersCount}: MainProps): JSX.Element {
+function Main({offersCount, offers}: MainProps): JSX.Element {
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -46,11 +48,7 @@ function Main({offersCount}: MainProps): JSX.Element {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <OfferCard />
-              <OfferCard />
-              <OfferCard />
-              <OfferCard />
-              <OfferCard />
+              <OffersList offers={offers}/>
             </div>
           </section>
           <div className="cities__right-section">
