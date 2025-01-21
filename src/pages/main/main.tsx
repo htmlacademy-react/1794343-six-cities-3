@@ -1,5 +1,5 @@
 import { OfferType } from '../../components/offer-card/types';
-import OffersList from '../../components/offers-list/offers-list';
+import OffersList from '../../components/offers-list';
 
 type MainProps = {
   offersCount: number;
@@ -19,7 +19,7 @@ function Main({offersCount, offers}: MainProps): JSX.Element {
           <ul className="locations__list tabs__list">
             {cities.map((city) => (
               <li className="locations__item" key={city}>
-                <a className="locations__item-link tabs__item" href="#">
+                <a className={`locations__item-link tabs__item ${city === 'Paris' ? 'tabs__item--active' : ''}`} href="#">
                   <span>{city}</span>
                 </a>
               </li>

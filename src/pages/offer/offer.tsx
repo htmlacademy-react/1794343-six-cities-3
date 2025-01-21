@@ -1,17 +1,16 @@
 import {Helmet} from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
-//import { isValidElement } from 'react';
-import { AppRoute } from '../../components/const';
-import { AuthorizationStatus } from '../../components/const';
-import { getAuthorizationStatus } from '../../mocks/authorization-status';
-import OffersList from '../../components/offers-list/offers-list';
-import GalleryPic from './gallery-pic';
-import Reviews from './reviews';
-import { OfferType } from '../../components/offer-card/types';
-import { ReviewType } from './types';
-import IsideList from './inside-list';
+import { AppRoute, AuthorizationStatus } from '../../components/const';
 import { makeFirstCharBig, isPlural } from '../util';
 import NotFound from '../not-found';
+import OffersList from '../../components/offers-list';
+import GalleryPic from './gallery-pic';
+import Reviews from './reviews';
+import IsideList from './inside-list';
+import ReviewForm from './review-form';
+import { OfferType } from '../../components/offer-card/types';
+import { ReviewType } from './types';
+import { getAuthorizationStatus } from '../../mocks/authorization-status';
 
 type OfferProps = {
   offers: OfferType[];
@@ -35,10 +34,6 @@ function Offer({offers, reviews}: OfferProps): JSX.Element {
   const {pathname} = useLocation();
   const generalOffer = getOffer(pathname as AppRoute);
   const offer = generalOffer as OfferType;
-  /*if (isValidElement(offer)) {
-    return offer;
-  }
-  const offer = offers[0];*/
   const {host} = offer;
 
   return (
@@ -122,52 +117,13 @@ function Offer({offers, reviews}: OfferProps): JSX.Element {
               <section className="offer__reviews reviews">
                 <Reviews reviews={reviews}/>
                 {authorizationStatus === AuthorizationStatus.Auth ? (
-                  <form className="reviews__form form" action="#" method="post">
-                    <label className="reviews__label form__label" htmlFor="review">Your review</label>
-                    <div className="reviews__rating-form form__rating">
-                      <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio"/>
-                      <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-                        <svg className="form__star-image" width="37" height="33">
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                      </label>
-
-                      <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio"/>
-                      <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-                        <svg className="form__star-image" width="37" height="33">
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                      </label>
-
-                      <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio"/>
-                      <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-                        <svg className="form__star-image" width="37" height="33">
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                      </label>
-
-                      <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio"/>
-                      <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-                        <svg className="form__star-image" width="37" height="33">
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                      </label>
-
-                      <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio"/>
-                      <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-                        <svg className="form__star-image" width="37" height="33">
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                      </label>
-                    </div>
-                    <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
-                    <div className="reviews__button-wrapper">
-                      <p className="reviews__help">
-                      To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
-                      </p>
-                      <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
-                    </div>
-                  </form>) : null}
+                  <ReviewForm
+                    offerId={offer.id}
+                    onSubmit={() => {
+                      throw new Error('Function \'onSubmit\' isn\'t implemented.');
+                    }}
+                  />
+                ) : null}
               </section>
             </div>
           </div>

@@ -6,18 +6,19 @@ import { makeFirstCharBig } from '../../pages/util';
 
 type CardProps = {
   offer: OfferType;
-  /*onMouseOver: () => void;
-  onMouseLeave: () => void;
-  cardClassName: string;*/
+  handleMouseHover: (offer?: OfferType) => void;
 }
 
 
-function OfferCard({offer} : CardProps): JSX.Element {
+function OfferCard({offer, handleMouseHover} : CardProps): JSX.Element {
   const {pathname} = useLocation();
   const {className, classNameInfo, width, height} = getOfferCardState(pathname as AppRoute);
 
   return (
-    <article className={`${className}__card place-card`}>
+    <article className={`${className}__card place-card`}
+      onMouseEnter={() => handleMouseHover(offer)}
+      onMouseLeave={() => handleMouseHover()}
+    >
       {offer.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
@@ -42,6 +43,8 @@ function OfferCard({offer} : CardProps): JSX.Element {
           <button
             className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
+            aria-pressed={offer.isFavorite}
+            onClick={() => {/* Логика добавления в закладки */}}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
