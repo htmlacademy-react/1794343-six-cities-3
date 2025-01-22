@@ -1,7 +1,7 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import { AppRoute } from '../const';
-import { getAuthorizationStatus } from '../../mock/authorization-status';
+import { getAuthorizationStatus } from '../../mocks/authorization-status';
 import Layout from '../layout';
 import Main from '../../pages/main';
 import Login from '../../pages/login';
@@ -9,35 +9,16 @@ import Favorites from '../../pages/favorites';
 import Offer from '../../pages/offer';
 import NotFound from '../../pages/not-found';
 import PrivateRoute from '../private-route';
+import { OfferType } from '../offer-card/types';
+import { ReviewType } from '../../pages/offer/types';
 
 type AppProps = {
   offersCount: number;
+  offers: OfferType[];
+  reviews: ReviewType[];
 }
 
-/*const Page = {
-  Main: 'main',
-  Login: 'login',
-  Favorites: 'favorites',
-  Offer: 'offer',
-  NotFound: 'not-found'
-};
-
-const getPage = (offersCount: number, currentPage: string) => {
-  switch (currentPage) {
-    case Page.Main:
-      return <Main offersCount={offersCount}/>;
-    case Page.Login:
-      return <Login/>;
-    case Page.Favorites:
-      return <Favorites/>;
-    case Page.Offer:
-      return <Offer/>;
-    case Page.NotFound:
-      return <NotFound/>;
-  }
-};*/
-
-function App ({offersCount}: AppProps): JSX.Element {
+function App ({offersCount, offers, reviews}: AppProps): JSX.Element {
   const authorizationStatus = getAuthorizationStatus();
   return (
     <HelmetProvider>
@@ -49,7 +30,12 @@ function App ({offersCount}: AppProps): JSX.Element {
           >
             <Route
               index
-              element={<Main offersCount={offersCount} />}
+              element={
+                <Main
+                  offersCount={offersCount}
+                  offers={offers}
+                />
+              }
             />
             <Route
               path={AppRoute.Login}
@@ -68,13 +54,18 @@ function App ({offersCount}: AppProps): JSX.Element {
                 <PrivateRoute
                   authorizationStatus={authorizationStatus}
                 >
-                  <Favorites/>
+                  <Favorites offers={offers}/>
                 </PrivateRoute>
               }
             />
             <Route
               path={AppRoute.Offer}
-              element={<Offer />}
+              element={
+                <Offer
+                  offers={offers}
+                  reviews={reviews}
+                />
+              }
             />
             <Route
               path="*"

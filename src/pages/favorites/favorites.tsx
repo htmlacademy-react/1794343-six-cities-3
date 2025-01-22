@@ -1,7 +1,12 @@
 import {Helmet} from 'react-helmet-async';
-import OfferCard from '../../components/offer-card';
+import OffersList from '../../components/offers-list';
+import { OfferType } from '../../components/offer-card/types';
 
-function Favorites(): JSX.Element {
+type FavoritesProps = {
+  offers: OfferType[];
+}
+
+function Favorites({offers}: FavoritesProps): JSX.Element {
   return (
     <>
       <Helmet>
@@ -21,8 +26,7 @@ function Favorites(): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <OfferCard />
-                  <OfferCard />
+                  <OffersList offers={offers}/>
                 </div>
               </li>
 
@@ -35,7 +39,7 @@ function Favorites(): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <OfferCard />
+                  <OffersList offers={offers}/>
                 </div>
               </li>
             </ul>
