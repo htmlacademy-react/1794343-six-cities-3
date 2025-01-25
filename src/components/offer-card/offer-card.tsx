@@ -1,12 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../const';
+import cn from 'classnames';
 import { getOfferCardState } from './util';
 import { OfferType } from './types';
 import { makeFirstCharBig } from '../../pages/util';
 
 type CardProps = {
   offer: OfferType;
-  handleMouseHover: (offer?: OfferType) => void;
+  handleMouseHover?: (offer?: OfferType) => void;
 }
 
 
@@ -16,8 +17,16 @@ function OfferCard({offer, handleMouseHover} : CardProps): JSX.Element {
 
   return (
     <article className={`${className}__card place-card`}
-      onMouseEnter={() => handleMouseHover(offer)}
-      onMouseLeave={() => handleMouseHover()}
+      onMouseEnter={() => {
+        if (handleMouseHover) {
+          handleMouseHover(offer);
+        }
+      }}
+      onMouseLeave={() => {
+        if (handleMouseHover) {
+          handleMouseHover();
+        }
+      }}
     >
       {offer.isPremium &&
       <div className="place-card__mark">
@@ -41,7 +50,10 @@ function OfferCard({offer, handleMouseHover} : CardProps): JSX.Element {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
+            className={cn(
+              'place-card__bookmark-button button',
+              {'place-card__bookmark-button--active': offer.isFavorite}
+            )}
             type="button"
             aria-pressed={offer.isFavorite}
             onClick={() => {/* Логика добавления в закладки */}}

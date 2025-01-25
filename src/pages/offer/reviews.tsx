@@ -1,4 +1,5 @@
 import { ReviewType } from './types';
+import { isPlural } from '../util';
 
 type ReviewsProps = {
   reviews: ReviewType[];
@@ -6,10 +7,14 @@ type ReviewsProps = {
 
 function Reviews ({reviews}: ReviewsProps): JSX.Element {
   const shouwnReviews = reviews.slice(0, 10);
+  const shouwnReviewsCount = shouwnReviews.length;
 
   return (
     <>
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{shouwnReviews.length}</span></h2>
+      <h2 className="reviews__title">
+        {`Review${isPlural(shouwnReviewsCount) ? 's' : ''}`} &middot;
+        <span className="reviews__amount">{shouwnReviewsCount}</span>
+      </h2>
       <ul className="reviews__list">
         {shouwnReviews.map((review) => {
           const {user} = review;
@@ -22,7 +27,10 @@ function Reviews ({reviews}: ReviewsProps): JSX.Element {
                 <span className="reviews__user-name">
                   {user.name}
                 </span>
-                {user.isPro ? (<span className="reviews__user-status">Pro</span>) : ''}
+                {user.isPro &&
+                  <span className="reviews__user-status">
+                    Pro
+                  </span>}
               </div>
               <div className="reviews__info">
                 <div className="reviews__rating rating">

@@ -11,6 +11,7 @@ import ReviewForm from './review-form';
 import { OfferType } from '../../components/offer-card/types';
 import { ReviewType } from './types';
 import { getAuthorizationStatus } from '../../mocks/authorization-status';
+import Map from '../../components/map.tsx';
 
 type OfferProps = {
   offers: OfferType[];
@@ -127,7 +128,9 @@ function Offer({offers, reviews}: OfferProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <section className="offer__map map">
+            <Map offers={offers}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">

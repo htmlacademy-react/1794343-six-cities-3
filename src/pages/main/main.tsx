@@ -1,5 +1,8 @@
+import { useState } from 'react';
+import { Nullable } from 'vitest';
 import { OfferType } from '../../components/offer-card/types';
 import OffersList from '../../components/offers-list';
+import Map from '../../components/map.tsx';
 
 type MainProps = {
   offersCount: number;
@@ -10,7 +13,14 @@ const cities = [
   'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'
 ];
 
+//не забыть передать в мэп оферы выбранного города после реализации фильтра по городам
+
 function Main({offersCount, offers}: MainProps): JSX.Element {
+  const [activeOffer, setactiveOffer] = useState<Nullable<OfferType>>(null);
+  const handleMouseHover = (offer?: OfferType) => {
+    setactiveOffer (offer || null);
+  };
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -48,11 +58,19 @@ function Main({offersCount, offers}: MainProps): JSX.Element {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <OffersList offers={offers}/>
+              <OffersList
+                offers={offers}
+                handleMouseHover={handleMouseHover}
+              />
             </div>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <section className="cities__map map">
+              <Map
+                offers={offers}
+                activeOffer={activeOffer}
+              />
+            </section>
           </div>
         </div>
       </div>
