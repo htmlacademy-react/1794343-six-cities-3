@@ -148,7 +148,7 @@ export const offersData: OfferType[] = [
     isFavorite: true,
     isPremium: false,
     rating: 1.7,
-    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/16.jpg',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
     goods: [
@@ -169,4 +169,172 @@ export const offersData: OfferType[] = [
     ],
     maxAdults: 4
   },
+  {
+    id: '252b9241-a2cb-4f22-bb2c-8027cafc1610',
+    title: 'Waterfront with extraordinary view',
+    type: 'house',
+    price: 374,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.37454,
+        longitude: 4.897976,
+        zoom: 13
+      }
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 16
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 1.7,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    bedrooms: 3,
+    goods: [
+      'Wifi'
+    ],
+    host: {
+      name: 'Hermione Granger',
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/7.jpg',
+      isPro: false
+    },
+    images: [
+      'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/14.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/15.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/16.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/18.jpg',
+    ],
+    maxAdults: 4
+  },
+  {
+    id: '252b9241-a2cb-4f22-bb2c-1027cafc1610',
+    title: 'Waterfront with extraordinary view',
+    type: 'house',
+    price: 374,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.37454,
+        longitude: 4.897976,
+        zoom: 13
+      }
+    },
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 16
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 1.7,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/18.jpg',
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    bedrooms: 3,
+    goods: [
+      'Wifi'
+    ],
+    host: {
+      name: 'Hermione Granger',
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/7.jpg',
+      isPro: false
+    },
+    images: [
+      'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/14.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/15.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/16.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/18.jpg',
+    ],
+    maxAdults: 4
+  },
+  {
+    id: '252b9241-a2db-4f22-bb2c-1027cafc1610',
+    title: 'Waterfront with extraordinary view',
+    type: 'house',
+    price: 374,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.37454,
+        longitude: 4.897976,
+        zoom: 13
+      }
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 16
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 1.7,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    bedrooms: 3,
+    goods: [
+      'Wifi'
+    ],
+    host: {
+      name: 'Hermione Granger',
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/7.jpg',
+      isPro: false
+    },
+    images: [
+      'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/14.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/15.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/16.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/18.jpg',
+    ],
+    maxAdults: 4
+  },
+  {
+    id: '252b9241-a2db-4f22-bb2c-1027cafl1610',
+    title: 'Waterfront with extraordinary view',
+    type: 'house',
+    price: 374,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.37454,
+        longitude: 4.897976,
+        zoom: 13
+      }
+    },
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 16
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 1.7,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    bedrooms: 3,
+    goods: [
+      'Wifi'
+    ],
+    host: {
+      name: 'Hermione Granger',
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/7.jpg',
+      isPro: false
+    },
+    images: [
+      'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/14.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/15.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/16.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/18.jpg',
+    ],
+    maxAdults: 4
+  }
 ];

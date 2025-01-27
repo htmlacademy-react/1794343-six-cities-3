@@ -13,12 +13,11 @@ import { OfferType } from '../offer-card/types';
 import { ReviewType } from '../../pages/offer/types';
 
 type AppProps = {
-  offersCount: number;
   offers: OfferType[];
   reviews: ReviewType[];
 }
 
-function App ({offersCount, offers, reviews}: AppProps): JSX.Element {
+function App ({offers, reviews}: AppProps): JSX.Element {
   const authorizationStatus = getAuthorizationStatus();
   return (
     <HelmetProvider>
@@ -32,7 +31,6 @@ function App ({offersCount, offers, reviews}: AppProps): JSX.Element {
               index
               element={
                 <Main
-                  offersCount={offersCount}
                   offers={offers}
                 />
               }

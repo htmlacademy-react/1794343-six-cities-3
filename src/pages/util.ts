@@ -3,6 +3,7 @@
   const rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 };*/
+export const getRating = (rating: number) => Math.round(rating) * 20;
 
 export const makeFirstCharBig = (word: string) => {
   const bigFirstChar = word.charAt(0).toUpperCase();
