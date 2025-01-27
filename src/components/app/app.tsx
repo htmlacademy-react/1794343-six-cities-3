@@ -25,7 +25,11 @@ function App ({offers, reviews}: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<Layout />}
+            element={
+              <Layout
+                offers={offers}
+              />
+            }
           >
             <Route
               index

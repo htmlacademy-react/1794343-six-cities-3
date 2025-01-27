@@ -1,6 +1,7 @@
 import { AppRoute } from '../const';
 
 const getLayoutState = (pathname: AppRoute) => {
+
   let rootClassName = '';
   let shouldRenderUser = true;
   let shouldRenderFooter = false;

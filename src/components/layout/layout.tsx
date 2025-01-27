@@ -2,14 +2,27 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { getAuthorizationStatus } from '../../mocks/authorization-status';
 import { getLayoutState } from './util';
+import { OfferType } from '../offer-card/types';
+import cn from 'classnames';
 
-function Layout() {
+type LayoutProps = {
+  offers: OfferType[];
+}
+
+function Layout({offers}: LayoutProps): JSX.Element {
   const {pathname} = useLocation();
   const {rootClassName, shouldRenderUser, shouldRenderFooter} = getLayoutState(pathname as AppRoute);
   const authorizationStatus = getAuthorizationStatus();
+  //cюда передать избранные офферы
+  const isEmpty = offers.length === 0;
 
   return (
-    <div className={`page${rootClassName}`}>
+    <div className={cn(
+      'page',
+      {rootClassName},
+      {'page__main--favorites-empty': isEmpty}
+    )}
+    >
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
