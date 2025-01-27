@@ -1,19 +1,11 @@
 import React, { FormEvent, useState, ChangeEvent } from 'react';
 import { OfferType } from '../../components/offer-card/types';
-
-const ReviewRating = {
-  '5': 'perfect',
-  '4': 'good',
-  '3': 'not bad',
-  '2': 'badly',
-  '1': 'terribly'
-};
+import { ReviewRating } from './const';
 
 type ReviewFormProps = {
   offerId: OfferType['id'];
   onSubmit: (offerId: OfferType['id'], rating: number, comment: string) => void;
 };
-
 
 function ReviewForm({onSubmit, offerId}: ReviewFormProps): JSX.Element {
   const ratings = Object.entries(ReviewRating);

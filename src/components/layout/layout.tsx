@@ -2,7 +2,6 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { getAuthorizationStatus } from '../../mocks/authorization-status';
 import { getLayoutState } from './util';
-//import Logo from '../logo';
 
 function Layout() {
   const {pathname} = useLocation();

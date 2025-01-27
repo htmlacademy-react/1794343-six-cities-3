@@ -148,7 +148,7 @@ export const offersData: OfferType[] = [
     isFavorite: true,
     isPremium: false,
     rating: 1.7,
-    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/16.jpg',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
     goods: [
@@ -190,7 +190,7 @@ export const offersData: OfferType[] = [
     isFavorite: true,
     isPremium: false,
     rating: 1.7,
-    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
     goods: [
@@ -232,7 +232,7 @@ export const offersData: OfferType[] = [
     isFavorite: true,
     isPremium: false,
     rating: 1.7,
-    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/18.jpg',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
     goods: [
@@ -274,7 +274,7 @@ export const offersData: OfferType[] = [
     isFavorite: true,
     isPremium: false,
     rating: 1.7,
-    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/19.jpg',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
     goods: [
@@ -316,7 +316,7 @@ export const offersData: OfferType[] = [
     isFavorite: true,
     isPremium: false,
     rating: 1.7,
-    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
     goods: [

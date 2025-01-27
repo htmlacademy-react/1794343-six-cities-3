@@ -1,19 +1,20 @@
 import { ReviewType } from './types';
 import { isPlural } from '../util';
+import { REVIEWS_SHOWN_COUNT } from './const';
+import { getRating } from '../util';
 
 type ReviewsProps = {
   reviews: ReviewType[];
 }
 
 function Reviews ({reviews}: ReviewsProps): JSX.Element {
-  const shouwnReviews = reviews.slice(0, 10);
-  const shouwnReviewsCount = shouwnReviews.length;
+  const shouwnReviews = reviews.slice(0, REVIEWS_SHOWN_COUNT);
 
   return (
     <>
       <h2 className="reviews__title">
-        {`Review${isPlural(shouwnReviewsCount) ? 's' : ''}`} &middot;
-        <span className="reviews__amount">{shouwnReviewsCount}</span>
+        {`Review${isPlural(reviews.length) ? 's' : ''}`} &middot;
+        <span className="reviews__amount">{reviews.length}</span>
       </h2>
       <ul className="reviews__list">
         {shouwnReviews.map((review) => {
@@ -35,7 +36,7 @@ function Reviews ({reviews}: ReviewsProps): JSX.Element {
               <div className="reviews__info">
                 <div className="reviews__rating rating">
                   <div className="reviews__stars rating__stars">
-                    <span style={{width: `${Math.round(review.rating) * 20}%`}}></span>
+                    <span style={{width: `${getRating(review.rating)}%`}}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>
@@ -45,7 +46,7 @@ function Reviews ({reviews}: ReviewsProps): JSX.Element {
                 <time className="reviews__time" dateTime={review.date}>{review.date}</time>
               </div>
             </li>);
-        })};
+        })}
       </ul>
     </>
   );

@@ -12,6 +12,8 @@ import { OfferType } from '../../components/offer-card/types';
 import { ReviewType } from './types';
 import { getAuthorizationStatus } from '../../mocks/authorization-status';
 import Map from '../../components/map.tsx';
+import { getNearOffers } from './util.ts';
+import { getRating } from '../util';
 
 type OfferProps = {
   offers: OfferType[];
@@ -32,10 +34,14 @@ function Offer({offers, reviews}: OfferProps): JSX.Element {
     }
     return offer;
   }
+
   const {pathname} = useLocation();
   const generalOffer = getOffer(pathname as AppRoute);
   const offer = generalOffer as OfferType;
   const {host} = offer;
+
+  const shownNearOffersCards = getNearOffers(offers, offer);
+  const shownNearOffersMap: OfferType[] = [...shownNearOffersCards, offer];
 
   return (
     <>
@@ -68,7 +74,7 @@ function Offer({offers, reviews}: OfferProps): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${Math.round(offer.rating) * 20}%`}}></span>
+                  <span style={{width: `${getRating(offer.rating)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{offer.rating}</span>
@@ -129,14 +135,17 @@ function Offer({offers, reviews}: OfferProps): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map offers={offers}/>
+            <Map
+              offers={shownNearOffersMap}
+              activeOffer={offer}
+            />
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={offers}/>
+              <OffersList offers={shownNearOffersCards}/>
             </div>
           </section>
         </div>

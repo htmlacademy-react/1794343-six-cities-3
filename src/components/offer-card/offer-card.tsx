@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { getOfferCardState } from './util';
 import { OfferType } from './types';
 import { makeFirstCharBig } from '../../pages/util';
+import { getRating } from '../../pages/util';
 
 type CardProps = {
   offer: OfferType;
@@ -33,7 +34,7 @@ function OfferCard({offer, handleMouseHover} : CardProps): JSX.Element {
         <span>Premium</span>
       </div>}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/Offer/${offer.id}`}>
+        <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -66,12 +67,12 @@ function OfferCard({offer, handleMouseHover} : CardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(offer.rating) * 20}%`}}></span>
+            <span style={{width: `${getRating(offer.rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/Offer/${offer.id}`}>{offer.title}</Link>
+          <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{makeFirstCharBig(offer.type)}</p>
       </div>

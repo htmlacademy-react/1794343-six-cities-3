@@ -1,5 +1,3 @@
-export const OFFERS_COUNT = 3655;
-
 export enum AppRoute {
   Root = '/',
   Login = '/login',

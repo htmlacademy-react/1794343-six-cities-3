@@ -1,5 +1,5 @@
 import {useRef, useEffect} from 'react';
-import leaflet from 'leaflet';
+import leaflet, { LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
 import { OfferType } from '../offer-card/types';
@@ -8,7 +8,7 @@ import { IconSetting } from './const';
 
 type MapProps = {
   offers: OfferType[];
-  activeOffer?: Nullable<OfferType>;
+  activeOffer: Nullable<OfferType>;
 }
 
 const defaultCustomIcon = leaflet.icon({
@@ -24,12 +24,21 @@ const currentCustomIcon = leaflet.icon({
 });
 
 function Map({offers, activeOffer}: MapProps): JSX.Element {
-  const amsterdamOffers = offers.filter((offer) => offer.city.name === 'Amsterdam');
   // берем первый оффер для передачи координат города в useMap
   // (подойдет любой, т.к. сюда передали офферы только для конкретного города в main и в offer)
-  const firstOffer = amsterdamOffers[0];
+  const firstOffer = offers[0];
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef, firstOffer);
+  const markerLayer = useRef<LayerGroup>(leaflet.layerGroup());
+
+  useEffect(() => {
+    if (map) {
+      const city = firstOffer.city.location;
+      map.setView([city.latitude, city.longitude], city.zoom);
+      markerLayer.current.addTo(map);
+      markerLayer.current.clearLayers();
+    }
+  }, [firstOffer, map, offers]);
 
   useEffect(() => {
     if (map) {
@@ -43,7 +52,7 @@ function Map({offers, activeOffer}: MapProps): JSX.Element {
               ? currentCustomIcon
               : defaultCustomIcon,
           })
-          .addTo(map);
+          .addTo(markerLayer.current);
       });
     }
   }, [map, offers, activeOffer]);
