@@ -5,22 +5,22 @@ import OffersList from '../../components/offers-list';
 import Map from '../../components/map.tsx';
 import CitiesNav from './cities-nav.tsx';
 import SortingForm from './sorting-form.tsx';
-import { cities } from './const.ts';
 import { filterOffersByCity } from './util.ts';
 import { isPlural } from '../util.ts';
 import MainEmpty from './main-empty.tsx';
 import cn from 'classnames';
+import { useAppSelector } from '../../hooks/use-store.ts';
 
-type MainProps = {
-  offers: OfferType[];
-}
 
-function Main({offers}: MainProps): JSX.Element {
+function Main(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const currentCity = useAppSelector((state) => state.city);
+
   const [activeOffer, setactiveOffer] = useState<Nullable<OfferType>>(null);
   const handleMouseHover = (offer?: OfferType) => {
     setactiveOffer (offer || null);
   };
-  const currentCity = cities[3];
+
   const currentOffers = filterOffersByCity(offers, currentCity);
   const isEmpty = currentOffers.length === 0;
 
@@ -57,7 +57,9 @@ function Main({offers}: MainProps): JSX.Element {
       )}
     >
       <h1 className="visually-hidden">Cities</h1>
-      <CitiesNav currentCity={currentCity}/>
+      <CitiesNav
+        currentCity={currentCity}
+      />
       <div className="cities">
         {mainContent}
       </div>

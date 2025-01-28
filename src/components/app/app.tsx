@@ -34,9 +34,7 @@ function App ({offers, reviews}: AppProps): JSX.Element {
             <Route
               index
               element={
-                <Main
-                  offers={offers}
-                />
+                <Main />
               }
             />
             <Route

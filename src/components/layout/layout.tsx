@@ -19,7 +19,7 @@ function Layout({offers}: LayoutProps): JSX.Element {
   return (
     <div className={cn(
       'page',
-      {rootClassName},
+      `${rootClassName}`,
       {'page__main--favorites-empty': isEmpty}
     )}
     >
