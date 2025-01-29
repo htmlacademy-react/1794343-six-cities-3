@@ -173,7 +173,7 @@ export const offersData: OfferType[] = [
     id: '252b9241-a2cb-4f22-bb2c-8027cafc1610',
     title: 'Waterfront with extraordinary view',
     type: 'house',
-    price: 374,
+    price: 674,
     city: {
       name: 'Amsterdam',
       location: {
@@ -189,7 +189,7 @@ export const offersData: OfferType[] = [
     },
     isFavorite: true,
     isPremium: false,
-    rating: 1.7,
+    rating: 2.7,
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
@@ -215,7 +215,7 @@ export const offersData: OfferType[] = [
     id: '252b9241-a2cb-4f22-bb2c-1027cafc1610',
     title: 'Waterfront with extraordinary view',
     type: 'house',
-    price: 374,
+    price: 274,
     city: {
       name: 'Amsterdam',
       location: {
@@ -231,7 +231,7 @@ export const offersData: OfferType[] = [
     },
     isFavorite: true,
     isPremium: false,
-    rating: 1.7,
+    rating: 3.7,
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/18.jpg',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
@@ -257,7 +257,7 @@ export const offersData: OfferType[] = [
     id: '252b9241-a2db-4f22-bb2c-1027cafc1610',
     title: 'Waterfront with extraordinary view',
     type: 'house',
-    price: 374,
+    price: 3074,
     city: {
       name: 'Amsterdam',
       location: {
@@ -273,7 +273,7 @@ export const offersData: OfferType[] = [
     },
     isFavorite: true,
     isPremium: false,
-    rating: 1.7,
+    rating: 3.7,
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/19.jpg',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
@@ -299,7 +299,7 @@ export const offersData: OfferType[] = [
     id: '252b9241-a2db-4f22-bb2c-1027cafl1610',
     title: 'Waterfront with extraordinary view',
     type: 'house',
-    price: 374,
+    price: 1375,
     city: {
       name: 'Amsterdam',
       location: {
@@ -315,7 +315,7 @@ export const offersData: OfferType[] = [
     },
     isFavorite: true,
     isPremium: false,
-    rating: 1.7,
+    rating: 4.7,
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,

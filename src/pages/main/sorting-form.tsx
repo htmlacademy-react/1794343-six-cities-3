@@ -1,19 +1,50 @@
+import cn from 'classnames';
+import { SortingOption } from './const';
+import { makeFirstCharBig } from '../util';
+import { useEffect } from 'react';
+import { useBoolean } from '../../hooks/use-boolean';
 
-function SortingForm(): JSX.Element {
+type SortingFormProps = {
+  currentOption: string;
+  onOptionChange: (option: string) => void;
+}
+
+function SortingForm({currentOption, onOptionChange}: SortingFormProps): JSX.Element {
+  const {isOn, off, toggle} = useBoolean(false);
+  useEffect(() => {
+    //здесь будет слушатель esc кейдаун
+  }, [isOn, off]);
+
   return (
-    <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by</span>
+    <form className="places__sorting" action="#" method="get"
+      onClick={toggle}
+    >
+      <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex={0}>
-                  Popular
+        {makeFirstCharBig(currentOption)}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className="places__options places__options--custom places__options--opened">
-        <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-        <li className="places__option" tabIndex={0}>Price: low to high</li>
-        <li className="places__option" tabIndex={0}>Price: high to low</li>
-        <li className="places__option" tabIndex={0}>Top rated first</li>
+      <ul
+        className={cn(
+          'places__options places__options--custom',
+          {'places__options--opened': isOn}
+        )}
+      >
+        {Object.values(SortingOption).map((option) => (
+          <li
+            className={cn(
+              'places__option',
+              {'places__option--active': option === currentOption}
+            )}
+            tabIndex={0}
+            key={option}
+            onClick={() => onOptionChange(option)}
+          >
+            {makeFirstCharBig(option)}
+          </li>
+        ))}
       </ul>
     </form>);
 }

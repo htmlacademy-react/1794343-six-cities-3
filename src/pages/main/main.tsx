@@ -10,7 +10,7 @@ import { isPlural } from '../util.ts';
 import MainEmpty from './main-empty.tsx';
 import cn from 'classnames';
 import { useAppSelector } from '../../hooks/use-store.ts';
-
+import { SortingOption } from './const.ts';
 
 function Main(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
@@ -20,6 +20,8 @@ function Main(): JSX.Element {
   const handleMouseHover = (offer?: OfferType) => {
     setactiveOffer (offer || null);
   };
+
+  const [currentOption, setCurrentOption] = useState(SortingOption.POPULAR);
 
   const currentOffers = filterOffersByCity(offers, currentCity);
   const isEmpty = currentOffers.length === 0;
@@ -35,14 +37,24 @@ function Main(): JSX.Element {
           <b className="places__found">
             {`${currentOffers.length} place${isPlural(currentOffers.length) ? 's' : ''} to stay in ${currentCity}`}
           </b>
-          <SortingForm />
+          <SortingForm
+            currentOption={currentOption}
+            onOptionChange={(option) => setCurrentOption(option)}
+          />
           <div className="cities__places-list places__list tabs__content">
-            <OffersList offers={currentOffers} handleMouseHover={handleMouseHover} />
+            <OffersList
+              currentOption={currentOption}
+              offers={currentOffers}
+              handleMouseHover={handleMouseHover}
+            />
           </div>
         </section>
         <div className="cities__right-section">
           <section className="cities__map map">
-            <Map offers={currentOffers} activeOffer={activeOffer} />
+            <Map
+              offers={currentOffers}
+              activeOffer={activeOffer}
+            />
           </section>
         </div>
       </div>
@@ -57,9 +69,7 @@ function Main(): JSX.Element {
       )}
     >
       <h1 className="visually-hidden">Cities</h1>
-      <CitiesNav
-        currentCity={currentCity}
-      />
+      <CitiesNav />
       <div className="cities">
         {mainContent}
       </div>
