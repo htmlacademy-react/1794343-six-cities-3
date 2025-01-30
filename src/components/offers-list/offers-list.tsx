@@ -3,7 +3,7 @@ import { OfferType } from '../offer-card/types';
 import { SortingOption } from '../../pages/main/const';
 
 type OfferListProps = {
-  currentOption: string;
+  currentOption?: string;
   offers: OfferType[];
   handleMouseHover?: (offer?: OfferType) => void;
 };
