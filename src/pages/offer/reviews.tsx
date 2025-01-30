@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { ReviewType } from './types';
 import { isPlural } from '../util';
 import { REVIEWS_SHOWN_COUNT } from './const';
@@ -8,7 +9,7 @@ type ReviewsProps = {
 }
 
 function Reviews ({reviews}: ReviewsProps): JSX.Element {
-  const shouwnReviews = reviews.slice(0, REVIEWS_SHOWN_COUNT);
+  const shouwnReviews = reviews.slice(0, REVIEWS_SHOWN_COUNT).sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
 
   return (
     <>
@@ -43,7 +44,7 @@ function Reviews ({reviews}: ReviewsProps): JSX.Element {
                 <p className="reviews__text">
                   {review.comment}
                 </p>
-                <time className="reviews__time" dateTime={review.date}>{review.date}</time>
+                <time className="reviews__time" dateTime={review.date}>{dayjs(review.date).format('MMMM YYYY')}</time>
               </div>
             </li>);
         })}

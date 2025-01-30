@@ -5,22 +5,24 @@ import OffersList from '../../components/offers-list';
 import Map from '../../components/map.tsx';
 import CitiesNav from './cities-nav.tsx';
 import SortingForm from './sorting-form.tsx';
-import { cities } from './const.ts';
 import { filterOffersByCity } from './util.ts';
 import { isPlural } from '../util.ts';
 import MainEmpty from './main-empty.tsx';
 import cn from 'classnames';
+import { useAppSelector } from '../../hooks/use-store.ts';
+import { SortingOption } from './const.ts';
 
-type MainProps = {
-  offers: OfferType[];
-}
+function Main(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const currentCity = useAppSelector((state) => state.city);
 
-function Main({offers}: MainProps): JSX.Element {
   const [activeOffer, setactiveOffer] = useState<Nullable<OfferType>>(null);
   const handleMouseHover = (offer?: OfferType) => {
     setactiveOffer (offer || null);
   };
-  const currentCity = cities[3];
+
+  const [currentOption, setCurrentOption] = useState(SortingOption.POPULAR);
+
   const currentOffers = filterOffersByCity(offers, currentCity);
   const isEmpty = currentOffers.length === 0;
 
@@ -35,14 +37,24 @@ function Main({offers}: MainProps): JSX.Element {
           <b className="places__found">
             {`${currentOffers.length} place${isPlural(currentOffers.length) ? 's' : ''} to stay in ${currentCity}`}
           </b>
-          <SortingForm />
+          <SortingForm
+            currentOption={currentOption}
+            onOptionChange={(option) => setCurrentOption(option)}
+          />
           <div className="cities__places-list places__list tabs__content">
-            <OffersList offers={currentOffers} handleMouseHover={handleMouseHover} />
+            <OffersList
+              currentOption={currentOption}
+              offers={currentOffers}
+              handleMouseHover={handleMouseHover}
+            />
           </div>
         </section>
         <div className="cities__right-section">
           <section className="cities__map map">
-            <Map offers={currentOffers} activeOffer={activeOffer} />
+            <Map
+              offers={currentOffers}
+              activeOffer={activeOffer}
+            />
           </section>
         </div>
       </div>
@@ -57,7 +69,7 @@ function Main({offers}: MainProps): JSX.Element {
       )}
     >
       <h1 className="visually-hidden">Cities</h1>
-      <CitiesNav currentCity={currentCity}/>
+      <CitiesNav />
       <div className="cities">
         {mainContent}
       </div>

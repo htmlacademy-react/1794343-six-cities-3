@@ -1,4 +1,4 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, BrowserRouter, Routes, Navigate} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import { AppRoute } from '../const';
 import { getAuthorizationStatus } from '../../mocks/authorization-status';
@@ -11,6 +11,7 @@ import NotFound from '../../pages/not-found';
 import PrivateRoute from '../private-route';
 import { OfferType } from '../offer-card/types';
 import { ReviewType } from '../../pages/offer/types';
+import { cities } from '../../pages/main/const';
 
 type AppProps = {
   offers: OfferType[];
@@ -23,21 +24,10 @@ function App ({offers, reviews}: AppProps): JSX.Element {
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route
-            path={AppRoute.Root}
-            element={
-              <Layout
-                offers={offers}
-              />
-            }
-          >
+          <Route element={<Layout offers={offers} />}>
             <Route
-              index
-              element={
-                <Main
-                  offers={offers}
-                />
-              }
+              element={<Navigate to={`/${cities[0]}`}/>}
+              path={AppRoute.Root}
             />
             <Route
               path={AppRoute.Login}
@@ -69,6 +59,13 @@ function App ({offers, reviews}: AppProps): JSX.Element {
                 />
               }
             />
+            {cities.map((city) => (
+              <Route
+                element={<Main />}
+                key={city}
+                path={`/${city}`}
+              />
+            ))}
             <Route
               path="*"
               element={<NotFound />}

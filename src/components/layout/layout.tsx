@@ -11,6 +11,7 @@ type LayoutProps = {
 
 function Layout({offers}: LayoutProps): JSX.Element {
   const {pathname} = useLocation();
+
   const {rootClassName, shouldRenderUser, shouldRenderFooter} = getLayoutState(pathname as AppRoute);
   const authorizationStatus = getAuthorizationStatus();
   //cюда передать избранные офферы
@@ -19,7 +20,7 @@ function Layout({offers}: LayoutProps): JSX.Element {
   return (
     <div className={cn(
       'page',
-      {rootClassName},
+      `${rootClassName}`,
       {'page__main--favorites-empty': isEmpty}
     )}
     >
