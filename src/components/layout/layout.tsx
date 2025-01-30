@@ -9,12 +9,14 @@ type LayoutProps = {
   offers: OfferType[];
 }
 
+//в этот компонент передать избранные офферы
+
+
 function Layout({offers}: LayoutProps): JSX.Element {
   const {pathname} = useLocation();
 
   const {rootClassName, shouldRenderUser, shouldRenderFooter} = getLayoutState(pathname as AppRoute);
   const authorizationStatus = getAuthorizationStatus();
-  //cюда передать избранные офферы
   const isEmpty = offers.length === 0;
 
   return (
@@ -48,7 +50,7 @@ function Layout({offers}: LayoutProps): JSX.Element {
                         {authorizationStatus === AuthorizationStatus.Auth ? (
                           <>
                             <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                            <span className="header__favorite-count">3</span>
+                            <span className="header__favorite-count">{offers.length}</span>
                           </>
                         ) : <span className="header__login">Sign in</span>}
                       </Link>
