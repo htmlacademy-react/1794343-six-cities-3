@@ -24,26 +24,11 @@ function App ({offers, reviews}: AppProps): JSX.Element {
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route
-            path={AppRoute.Root}
-            element={
-              <Layout
-                offers={offers}
-              />
-            }
-          >
+          <Route element={<Layout offers={offers} />}>
             <Route
               element={<Navigate to={`/${cities[0]}`}/>}
-              index
               path={AppRoute.Root}
             />
-            {cities.map((city) => (
-              <Route
-                element={<Main />}
-                key={city}
-                path={`/${city}`}
-              />
-            ))}
             <Route
               path={AppRoute.Login}
               element={
@@ -74,6 +59,13 @@ function App ({offers, reviews}: AppProps): JSX.Element {
                 />
               }
             />
+            {cities.map((city) => (
+              <Route
+                element={<Main />}
+                key={city}
+                path={`/${city}`}
+              />
+            ))}
             <Route
               path="*"
               element={<NotFound />}
