@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
+import { AppRoute } from '../../components/const';
 
 function NotFound(): JSX.Element {
   return (
@@ -12,7 +13,7 @@ function NotFound(): JSX.Element {
         <h2>Страница не найдена</h2>
         <img src="https://15.design.htmlacademy.pro/static/hotel/12.jpg" alt="Lost in space" style={{ width: '400px' }} />
         <p>Похоже, вы заблудились. Попробуйте вернуться на главную.</p>
-        <Link to="/">
+        <Link to={AppRoute.Root}>
           <b style={{ fontSize: '20px', color: '#9E471A', textDecoration: 'underline' }}>
             Вернуться на главную страницу
           </b>

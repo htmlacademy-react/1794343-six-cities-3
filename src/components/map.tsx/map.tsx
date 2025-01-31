@@ -26,19 +26,18 @@ const currentCustomIcon = leaflet.icon({
 function Map({offers, activeOffer}: MapProps): JSX.Element {
   // берем первый оффер для передачи координат города в useMap
   // (подойдет любой, т.к. сюда передали офферы только для конкретного города в main и в offer)
-  const firstOffer = offers[0];
   const mapRef = useRef<HTMLDivElement>(null);
-  const map = useMap(mapRef, firstOffer);
+  const map = useMap(mapRef, offers[0]);
   const markerLayer = useRef<LayerGroup>(leaflet.layerGroup());
 
   useEffect(() => {
     if (map) {
-      const city = firstOffer.city.location;
+      const city = offers[0].city.location;
       map.setView([city.latitude, city.longitude], city.zoom);
       markerLayer.current.addTo(map);
       markerLayer.current.clearLayers();
     }
-  }, [firstOffer, map, offers]);
+  }, [map, offers]);
 
   useEffect(() => {
     if (map) {
