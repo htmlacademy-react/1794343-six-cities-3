@@ -12,7 +12,7 @@ const getLayoutState = (pathname: AppRoute) => {
   } else if (pathname === AppRoute.Favorites) {
     shouldRenderFooter = true;
   } else {
-    const isCityRoute = /^\/[a-zA-Z]+$/.test(pathname);
+    const isCityRoute = pathname === AppRoute.Root || pathname.includes(`${AppRoute.Root}?city=`);
     if (isCityRoute) {
       rootClassName = ' page--gray page--main';
     }
