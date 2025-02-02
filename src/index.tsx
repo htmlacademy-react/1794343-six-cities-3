@@ -6,6 +6,9 @@ import { store } from './store';
 import { offersData } from './mocks/offers';
 import { reviewsData } from './mocks/reviews';
 
+import { fetchOffersAction } from './store/api-acitons';
+store.dispatch(fetchOffersAction());
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

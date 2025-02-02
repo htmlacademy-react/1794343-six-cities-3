@@ -11,9 +11,10 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-/*export enum AccommodationType {
-  apartment = 'apartment',
-  room = 'room',
-  house = 'house',
-  hotel = 'hotel'
-}*/
+export enum APIRoute {
+  Offers = '/offers',
+  Favorite = '/favorite',
+  Reviews = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}

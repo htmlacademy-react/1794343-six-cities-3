@@ -1,16 +1,17 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import { AppRoute } from '../const';
-import { getAuthorizationStatus } from '../../mocks/authorization-status';
 import Layout from '../layout';
 import Main from '../../pages/main';
 import Login from '../../pages/login';
 import Favorites from '../../pages/favorites';
 import Offer from '../../pages/offer';
 import NotFound from '../../pages/not-found';
+import Loading from '../../pages/loadig';
 import PrivateRoute from '../private-route';
 import { OfferType } from '../offer-card/types';
 import { ReviewType } from '../../pages/offer/types';
+import { useAppSelector } from '../../hooks/use-store';
 
 type AppProps = {
   offers: OfferType[];
@@ -18,7 +19,14 @@ type AppProps = {
 }
 
 function App ({offers, reviews}: AppProps): JSX.Element {
-  const authorizationStatus = getAuthorizationStatus();
+  const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  if (isDataLoading) {
+    return (
+      <Loading />
+    );
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>
