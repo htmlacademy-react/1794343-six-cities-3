@@ -1,6 +1,6 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
-import { AppRoute } from '../const';
+import { AppRoute, AuthorizationStatus } from '../const';
 import Layout from '../layout';
 import Main from '../../pages/main';
 import Login from '../../pages/login';
@@ -21,7 +21,8 @@ type AppProps = {
 function App ({offers, reviews}: AppProps): JSX.Element {
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  if (isDataLoading) {
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isDataLoading) {
     return (
       <Loading />
     );
