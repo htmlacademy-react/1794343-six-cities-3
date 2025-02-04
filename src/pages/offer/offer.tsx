@@ -1,8 +1,7 @@
 import {Helmet} from 'react-helmet-async';
-import { useLocation } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../components/const';
+import { AuthorizationStatus } from '../../components/const';
 import { makeFirstCharBig, isPlural } from '../util';
-import NotFound from '../not-found';
+//import NotFound from '../not-found';
 import OffersList from '../../components/offers-list';
 import GalleryPic from './gallery-pic';
 import Reviews from './reviews';
@@ -10,10 +9,13 @@ import IsideList from './inside-list';
 import ReviewForm from './review-form';
 import { OfferType } from '../../components/offer-card/types';
 import { ReviewType } from './types';
-import { getAuthorizationStatus } from '../../mocks/authorization-status';
 import Map from '../../components/map.tsx';
 import { getNearOffers } from './util.ts';
 import { getRating } from '../util';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-store.ts';
+import { useEffect } from 'react';
+import { fetchCurrentOfferAction } from '../../store/api-actions.ts';
+
 
 type OfferProps = {
   offers: OfferType[];
@@ -21,9 +23,16 @@ type OfferProps = {
 }
 
 function Offer({offers, reviews}: OfferProps): JSX.Element {
-  const authorizationStatus = getAuthorizationStatus();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
 
-  function getOffer (pathname: string) {
+  useEffect(() => {
+    dispatch(fetchCurrentOfferAction()); // Передаем offerId
+  }, [dispatch]);
+
+  const offer = useAppSelector((state) => state.currentOffer) as OfferType;
+  console.log(offer);
+  /*function getOffer (pathname: string) {
     const id = pathname.slice(7);
     if (!id) {
       return <NotFound />;
@@ -33,11 +42,12 @@ function Offer({offers, reviews}: OfferProps): JSX.Element {
       return <NotFound />;
     }
     return offer;
-  }
+  }*/
 
-  const {pathname} = useLocation();
-  const generalOffer = getOffer(pathname as AppRoute);
-  const offer = generalOffer as OfferType;
+  //const {pathname} = useLocation();
+  //const generalOffer = getOffer(pathname as AppRoute);
+  //const offer = generalOffer as OfferType;
+
   const {host} = offer;
 
   const shownNearOffersCards = getNearOffers(offers, offer);

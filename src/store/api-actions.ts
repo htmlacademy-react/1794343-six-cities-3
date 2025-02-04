@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { State, AppDispatch, UserData, AuthData } from './types';
-import { loadOffers, requireAuthorization, setDataLoadingStatus, setEmail } from './actions';
+import { loadCurrentOffer, loadOffers, requireAuthorization, setDataLoadingStatus, setEmail } from './actions';
 import { APIRoute, AuthorizationStatus } from '../components/const';
 import { OfferType } from '../components/offer-card/types';
 import { saveToken, dropToken } from '../services/token';
@@ -59,5 +59,17 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     dispatch(setEmail(''));
+  },
+);
+
+export const fetchCurrentOfferAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'loadCurrentOffer',
+  async (currentOfferId, { dispatch, extra: api}) => {
+    const {data} = await api.get<OfferType>(`APIRoute.Offers/${currentOfferId}`);
+    dispatch(loadCurrentOffer(data));
   },
 );

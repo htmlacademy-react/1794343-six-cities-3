@@ -19,8 +19,8 @@ const REQUEST_TIMEOUT = 5000;
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
-    baseURL: BACKEND_URL,
-    timeout: REQUEST_TIMEOUT,
+    baseURL: BACKEND_URL as string,
+    timeout: REQUEST_TIMEOUT as number,
   });
 
   api.interceptors.request.use(
