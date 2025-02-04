@@ -1,9 +1,10 @@
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
-import { getAuthorizationStatus } from '../../mocks/authorization-status';
 import { getLayoutState } from './util';
 import { OfferType } from '../offer-card/types';
 import cn from 'classnames';
+import { useAppSelector, useAppDispatch } from '../../hooks/use-store';
+import { logoutAction } from '../../store/api-actions';
 
 type LayoutProps = {
   offers: OfferType[];
@@ -11,13 +12,15 @@ type LayoutProps = {
 
 //в этот компонент передать избранные офферы
 
-
 function Layout({offers}: LayoutProps): JSX.Element {
   const {pathname} = useLocation();
-
   const {rootClassName, shouldRenderUser, shouldRenderFooter} = getLayoutState(pathname as AppRoute);
-  const authorizationStatus = getAuthorizationStatus();
+
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
   const isEmpty = offers.length === 0;
+
+  const email = useAppSelector((state) => state.email);
 
   return (
     <div className={cn(
@@ -49,7 +52,7 @@ function Layout({offers}: LayoutProps): JSX.Element {
                         </div>
                         {authorizationStatus === AuthorizationStatus.Auth ? (
                           <>
-                            <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                            <span className="header__user-name user__name">{email}</span>
                             <span className="header__favorite-count">{offers.length}</span>
                           </>
                         ) : <span className="header__login">Sign in</span>}
@@ -59,6 +62,10 @@ function Layout({offers}: LayoutProps): JSX.Element {
                       <li className="header__nav-item">
                         <Link className="header__nav-link"
                           to={AppRoute.Root}
+                          onClick={(evt) => {
+                            evt.preventDefault();
+                            dispatch(logoutAction());
+                          }}
                         >
                           <span className="header__signout">Sign out</span>
                         </Link>

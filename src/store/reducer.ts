@@ -1,20 +1,35 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { chooseCity, fillOffersList } from './action';
-import { cities } from '../pages/main/const';
-import { offersData } from '../mocks/offers';
+import { loadOffers, requireAuthorization, setDataLoadingStatus, setEmail } from './actions';
+import { AuthorizationStatus } from '../components/const';
+import { OfferType } from '../components/offer-card/types';
 
-const initialState = {
-  city: cities[0],
-  offers: offersData
+type InitialState = {
+  offers: OfferType[];
+  authorizationStatus: AuthorizationStatus;
+  isDataLoading: boolean;
+  email: string;
+};
+
+const initialState: InitialState = {
+  offers: [],
+  authorizationStatus: AuthorizationStatus.Unknown,
+  isDataLoading: false,
+  email: '',
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(chooseCity, (state, action) => {
-      state.city = action.payload;
-    })
-    .addCase(fillOffersList, (state, action) => {
+    .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setDataLoadingStatus, (state, action) => {
+      state.isDataLoading = action.payload;
+    })
+    .addCase(setEmail, (state, action) => {
+      state.email = action.payload;
     });
 });
 
