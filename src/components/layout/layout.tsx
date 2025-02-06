@@ -21,6 +21,7 @@ function Layout({offers}: LayoutProps): JSX.Element {
   const isEmpty = offers.length === 0;
 
   const email = useAppSelector((state) => state.email);
+  //const offers = useAppSelector((state) => state.favoriteOffers);
 
   return (
     <div className={cn(

@@ -2,18 +2,29 @@ import {Helmet} from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import OffersList from '../../components/offers-list';
 import FavoritesEmpty from './favorites-empty';
-import { OfferType } from '../../components/offer-card/types';
 import cn from 'classnames';
 import { filterOffersByCity } from '../main/util';
 import { cities } from '../main/const';
 import { AppRoute } from '../../components/const';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-store';
+import { useEffect } from 'react';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import Loading from '../loadig';
 
-type FavoritesProps = {
-  offers: OfferType[];
-}
 
-function Favorites({offers}: FavoritesProps): JSX.Element {
+function Favorites(): JSX.Element {
+  const offers = useAppSelector((state) => state.favoriteOffers);
   const isEmpty = offers.length === 0;
+  const isFavoritesLoading = useAppSelector((state) => state.isFavoritesLoading);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteOffersAction());
+  }, [dispatch]);
+
+  if (isFavoritesLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

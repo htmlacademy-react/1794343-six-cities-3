@@ -7,13 +7,11 @@ import { makeFirstCharBig } from '../../pages/util';
 import { getRating } from '../../pages/util';
 import { useAppDispatch } from '../../hooks/use-store';
 import { setCurrentOfferId } from '../../store/actions';
-import { fetchCurrentOfferAction } from '../../store/api-actions';
 
 type CardProps = {
   offer: OfferType;
   handleMouseHover?: (offer?: OfferType) => void;
 }
-
 
 function OfferCard({offer, handleMouseHover} : CardProps): JSX.Element {
   const {pathname} = useLocation();
@@ -24,8 +22,6 @@ function OfferCard({offer, handleMouseHover} : CardProps): JSX.Element {
   const handleLinkClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     dispatch(setCurrentOfferId(offer.id));
-
-    dispatch(fetchCurrentOfferAction());
     navigate(`/offer/${offer.id}`);
   };
 

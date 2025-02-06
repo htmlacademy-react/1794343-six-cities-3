@@ -1,27 +1,40 @@
 import React, { FormEvent, useState, ChangeEvent } from 'react';
-import { OfferType } from '../../components/offer-card/types';
 import { ReviewRating } from './const';
+import { useAppDispatch, useAppSelector} from '../../hooks/use-store';
+import { addReviewAction } from '../../store/api-actions';
+import { useParams } from 'react-router-dom';
+import { fetchReviewsAction } from '../../store/api-actions';
 
-type ReviewFormProps = {
-  offerId: OfferType['id'];
-  onSubmit: (offerId: OfferType['id'], rating: number, comment: string) => void;
-};
-
-function ReviewForm({onSubmit, offerId}: ReviewFormProps): JSX.Element {
+function ReviewForm(): JSX.Element {
   const ratings = Object.entries(ReviewRating);
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+
+  const {id} = useParams();
+  const isReviewSending = useAppSelector((state) => state.isReviewSending);
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    if (typeof id === 'string') {
+      dispatch(addReviewAction({
+        id,
+        comment,
+        rating
+      }));
+      dispatch(fetchReviewsAction(id));
+      setRating(0);
+      setComment('');
+    }
+  };
 
   return (
     <form
       className="reviews__form form"
       action="#"
       method="post"
-      onSubmit={(evt: FormEvent<HTMLFormElement>) => {
-        evt.preventDefault();
-        onSubmit(offerId, rating, comment);
-      }}
+      onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
@@ -36,6 +49,7 @@ function ReviewForm({onSubmit, offerId}: ReviewFormProps): JSX.Element {
               onChange={({target}: ChangeEvent<HTMLInputElement>) => {
                 setRating(parseInt(target.value, 10));
               }}
+              checked={rating === parseInt(value, 10)}
             />
             <label
               htmlFor={`${value}-stars`}
@@ -54,6 +68,8 @@ function ReviewForm({onSubmit, offerId}: ReviewFormProps): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        maxLength={300}
+        value={comment}
         onChange={({target}: ChangeEvent<HTMLTextAreaElement>) => {
           setComment(target.value);
         }}
@@ -64,10 +80,11 @@ function ReviewForm({onSubmit, offerId}: ReviewFormProps): JSX.Element {
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
-          className="reviews__submit form__submit button" type="submit"
-          disabled={comment.length < 50 || rating === 0}
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={comment.length < 50 || rating === 0 || isReviewSending}
         >
-            Submit
+          {isReviewSending ? 'Submiting' : 'Submit'}
         </button>
       </div>
     </form>

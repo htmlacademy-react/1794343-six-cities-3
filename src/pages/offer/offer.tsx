@@ -1,56 +1,63 @@
 import {Helmet} from 'react-helmet-async';
 import { AuthorizationStatus } from '../../components/const';
 import { makeFirstCharBig, isPlural } from '../util';
-//import NotFound from '../not-found';
+import Loading from '../loadig/loading.tsx';
 import OffersList from '../../components/offers-list';
 import GalleryPic from './gallery-pic';
 import Reviews from './reviews';
 import IsideList from './inside-list';
 import ReviewForm from './review-form';
+import NotFound from '../not-found/not-found.tsx';
 import { OfferType } from '../../components/offer-card/types';
-import { ReviewType } from './types';
 import Map from '../../components/map.tsx';
 import { getNearOffers } from './util.ts';
 import { getRating } from '../util';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-store.ts';
 import { useEffect } from 'react';
-import { fetchCurrentOfferAction } from '../../store/api-actions.ts';
+import { fetchCurrentOfferAction, fetchNearOffersAction, fetchReviewsAction } from '../../store/api-actions.ts';
+import { useParams } from 'react-router-dom';
 
 
-type OfferProps = {
-  offers: OfferType[];
-  reviews: ReviewType[];
-}
-
-function Offer({offers, reviews}: OfferProps): JSX.Element {
+function Offer(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const offer = useAppSelector((state) => state.currentOffer) as OfferType;
+  const nearOffers = useAppSelector((state) => state.nearOffers);
+  const reviews = useAppSelector((state) => state.reviews);
+  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
+  const isNotFound = useAppSelector((state) => state.isNotFound);
   const dispatch = useAppDispatch();
+  const offerId = useParams().id;
 
   useEffect(() => {
-    dispatch(fetchCurrentOfferAction()); // Передаем offerId
-  }, [dispatch]);
-
-  const offer = useAppSelector((state) => state.currentOffer) as OfferType;
-  console.log(offer);
-  /*function getOffer (pathname: string) {
-    const id = pathname.slice(7);
-    if (!id) {
-      return <NotFound />;
+    if (typeof offerId === 'string') {
+      dispatch(fetchCurrentOfferAction(offerId));
+      dispatch(fetchNearOffersAction(offerId));
+      dispatch(fetchReviewsAction(offerId));
     }
-    const offer = offers.find((offerData) => offerData.id === id);
-    if (!offer) {
-      return <NotFound />;
-    }
-    return offer;
-  }*/
+  }, [dispatch, offerId]);
 
-  //const {pathname} = useLocation();
-  //const generalOffer = getOffer(pathname as AppRoute);
-  //const offer = generalOffer as OfferType;
+  if (isNotFound) {
+    return <NotFound />;
+  }
 
-  const {host} = offer;
+  if (isOfferLoading) {
+    return <Loading />;
+  }
 
-  const shownNearOffersCards = getNearOffers(offers, offer);
+
+  const {
+    title,
+    type,
+    price,
+    isFavorite,
+    isPremium,
+    rating,
+    description,
+    bedrooms,
+    host,
+    maxAdults} = offer;
+
+  const shownNearOffersCards = getNearOffers(nearOffers, offer);
   const shownNearOffersMap: OfferType[] = [...shownNearOffersCards, offer];
 
   return (
@@ -67,41 +74,41 @@ function Offer({offers, reviews}: OfferProps): JSX.Element {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {offer.isPremium &&
+              {isPremium &&
               <div className="offer__mark">
                 <span>Premium</span>
               </div>}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  {offer.title}
+                  {title}
                 </h1>
-                <button className={`offer__bookmark-button ${offer.isFavorite ? 'offer__bookmark-button--active' : ''} button`} type="button">
+                <button className={`offer__bookmark-button ${isFavorite ? 'offer__bookmark-button--active' : ''} button`} type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
-                  <span className="visually-hidden">{offer.isFavorite ? 'In' : 'To'} bookmarks</span>
+                  <span className="visually-hidden">{isFavorite ? 'In' : 'To'} bookmarks</span>
                 </button>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${getRating(offer.rating)}%`}}></span>
+                  <span style={{width: `${getRating(rating)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">{offer.rating}</span>
+                <span className="offer__rating-value rating__value">{rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {makeFirstCharBig(offer.type)}
+                  {makeFirstCharBig(type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {`${offer.bedrooms} Bedroom${isPlural(offer.bedrooms) ? 's' : ''}`}
+                  {`${bedrooms} Bedroom${isPlural(bedrooms) ? 's' : ''}`}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  {`Max ${offer.maxAdults} adult${isPlural(offer.maxAdults) ? 's' : ''}`}
+                  {`Max ${maxAdults} adult${isPlural(maxAdults) ? 's' : ''}`}
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;{offer.price}</b>
+                <b className="offer__price-value">&euro;{price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
@@ -124,22 +131,14 @@ function Offer({offers, reviews}: OfferProps): JSX.Element {
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                    {offer.description}
-                  </p>
-                  <p className="offer__text">
-                    {offer.description}
+                    {description}
                   </p>
                 </div>
               </div>
               <section className="offer__reviews reviews">
                 <Reviews reviews={reviews}/>
                 {authorizationStatus === AuthorizationStatus.Auth ? (
-                  <ReviewForm
-                    offerId={offer.id}
-                    onSubmit={() => {
-                      throw new Error('Function \'onSubmit\' isn\'t implemented.');
-                    }}
-                  />
+                  <ReviewForm />
                 ) : null}
               </section>
             </div>

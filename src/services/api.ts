@@ -4,6 +4,7 @@ import {getToken} from './token';
 import {toast} from 'react-toastify';
 
 type DetailMessageType = {
+  details: { messages: string[] }[];
   type: string;
   message: string;
 }
@@ -39,7 +40,13 @@ export const createAPI = (): AxiosInstance => {
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = (error.response.data);
-        toast.warn(detailMessage.message);
+        let message = '';
+        if (detailMessage.details.length > 0) {
+          message = detailMessage.details[0].messages.join(' ');
+        } else {
+          message = detailMessage.message;
+        }
+        toast.warn(message);
       }
       throw error;
     }

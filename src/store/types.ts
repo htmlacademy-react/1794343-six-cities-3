@@ -15,3 +15,9 @@ export type UserData = {
   email: string;
   token: string;
 };
+
+export type ReviewData = {
+  id: string;
+  comment: string;
+  rating: number;
+};

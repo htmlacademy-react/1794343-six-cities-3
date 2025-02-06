@@ -10,15 +10,13 @@ import NotFound from '../../pages/not-found';
 import Loading from '../../pages/loadig';
 import PrivateRoute from '../private-route';
 import { OfferType } from '../offer-card/types';
-import { ReviewType } from '../../pages/offer/types';
 import { useAppSelector } from '../../hooks/use-store';
 
 type AppProps = {
   offers: OfferType[];
-  reviews: ReviewType[];
 }
 
-function App ({offers, reviews}: AppProps): JSX.Element {
+function App ({offers}: AppProps): JSX.Element {
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
@@ -54,17 +52,14 @@ function App ({offers, reviews}: AppProps): JSX.Element {
                 <PrivateRoute
                   authorizationStatus={authorizationStatus}
                 >
-                  <Favorites offers={offers}/>
+                  <Favorites />
                 </PrivateRoute>
               }
             />
             <Route
               path={AppRoute.Offer}
               element={
-                <Offer
-                  offers={offers}
-                  reviews={reviews}
-                />
+                <Offer />
               }
             />
             <Route
