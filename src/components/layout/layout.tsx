@@ -1,33 +1,36 @@
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { getLayoutState } from './util';
-import { OfferType } from '../offer-card/types';
 import cn from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../hooks/use-store';
 import { logoutAction } from '../../store/api-actions';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import { useEffect } from 'react';
 
-type LayoutProps = {
-  offers: OfferType[];
-}
-
-//в этот компонент передать избранные офферы
-
-function Layout({offers}: LayoutProps): JSX.Element {
+function Layout(): JSX.Element {
   const {pathname} = useLocation();
-  const {rootClassName, shouldRenderUser, shouldRenderFooter} = getLayoutState(pathname as AppRoute);
+  const {
+    rootClassName,
+    shouldRenderUser,
+    shouldRenderFooter,
+    favoriteEmptyClassName
+  } = getLayoutState(pathname as AppRoute);
 
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
-  const isEmpty = offers.length === 0;
-
   const email = useAppSelector((state) => state.email);
-  //const offers = useAppSelector((state) => state.favoriteOffers);
+
+  useEffect(() => {
+    dispatch(fetchFavoriteOffersAction());
+  }, [dispatch]);
+  const offers = useAppSelector((state) => state.favoriteOffers);
+  const isEmpty = offers.length === 0;
 
   return (
     <div className={cn(
       'page',
       `${rootClassName}`,
-      {'page__main--favorites-empty': isEmpty}
+      {[favoriteEmptyClassName]: isEmpty}
     )}
     >
       <header className="header">
