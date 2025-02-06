@@ -1,20 +1,29 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../const';
 import cn from 'classnames';
 import { getOfferCardState } from './util';
 import { OfferType } from './types';
 import { makeFirstCharBig } from '../../pages/util';
 import { getRating } from '../../pages/util';
+import { useAppDispatch } from '../../hooks/use-store';
+import { setCurrentOfferId } from '../../store/actions';
 
 type CardProps = {
   offer: OfferType;
   handleMouseHover?: (offer?: OfferType) => void;
 }
 
-
 function OfferCard({offer, handleMouseHover} : CardProps): JSX.Element {
   const {pathname} = useLocation();
   const {className, classNameInfo, width, height} = getOfferCardState(pathname as AppRoute);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLinkClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+    dispatch(setCurrentOfferId(offer.id));
+    navigate(`/offer/${offer.id}`);
+  };
 
   return (
     <article className={`${className}__card place-card`}
@@ -34,7 +43,7 @@ function OfferCard({offer, handleMouseHover} : CardProps): JSX.Element {
         <span>Premium</span>
       </div>}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offer/${offer.id}`}>
+        <a onClick={handleLinkClick}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -42,7 +51,7 @@ function OfferCard({offer, handleMouseHover} : CardProps): JSX.Element {
             height={height}
             alt="Place image"
           />
-        </Link>
+        </a>
       </div>
       <div className={`${classNameInfo}place-card__info`}>
         <div className="place-card__price-wrapper">
@@ -72,7 +81,7 @@ function OfferCard({offer, handleMouseHover} : CardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
+          <a onClick={handleLinkClick}>{offer.title}</a>
         </h2>
         <p className="place-card__type">{makeFirstCharBig(offer.type)}</p>
       </div>
