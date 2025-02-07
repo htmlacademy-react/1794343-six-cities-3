@@ -16,13 +16,13 @@ import { useAppDispatch, useAppSelector } from '../../hooks/use-store.ts';
 import { useEffect } from 'react';
 import { fetchCurrentOfferAction, fetchNearOffersAction, fetchReviewsAction } from '../../store/api-actions.ts';
 import { useParams } from 'react-router-dom';
+import cn from 'classnames';
 
 
 function Offer(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const offer = useAppSelector((state) => state.currentOffer) as OfferType;
   const nearOffers = useAppSelector((state) => state.nearOffers);
-  const reviews = useAppSelector((state) => state.reviews);
   const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
   const isNotFound = useAppSelector((state) => state.isNotFound);
   const dispatch = useAppDispatch();
@@ -67,11 +67,7 @@ function Offer(): JSX.Element {
       </Helmet>
       <main className="page__main page__main--offer">
         <section className="offer">
-          <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              <GalleryPic offer={offer}/>
-            </div>
-          </div>
+          <GalleryPic offer={offer}/>
           <div className="offer__container container">
             <div className="offer__wrapper">
               {isPremium &&
@@ -118,7 +114,11 @@ function Offer(): JSX.Element {
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                  <div className={cn(
+                    'offer__avatar-wrapper user__avatar-wrapper',
+                    {'offer__avatar-wrapper--pro' : host.isPro}
+                  )}
+                  >
                     <img className="offer__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="offer__user-name">
@@ -136,7 +136,7 @@ function Offer(): JSX.Element {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <Reviews reviews={reviews}/>
+                <Reviews />
                 {authorizationStatus === AuthorizationStatus.Auth ? (
                   <ReviewForm />
                 ) : null}

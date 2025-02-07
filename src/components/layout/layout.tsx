@@ -21,8 +21,11 @@ function Layout(): JSX.Element {
   const email = useAppSelector((state) => state.email);
 
   useEffect(() => {
-    dispatch(fetchFavoriteOffersAction());
-  }, [dispatch]);
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [dispatch, authorizationStatus]);
+
   const offers = useAppSelector((state) => state.favoriteOffers);
   const isEmpty = offers.length === 0;
 

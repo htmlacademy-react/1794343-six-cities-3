@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/use-store';
 import { loginAction } from '../../store/api-actions';
 
-const city = cities[getRandomInteger(0, 5)];
 
 function Login(): JSX.Element {
+  const city = cities[getRandomInteger(0, 5)];
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
