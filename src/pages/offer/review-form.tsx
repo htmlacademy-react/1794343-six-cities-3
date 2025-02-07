@@ -50,6 +50,7 @@ function ReviewForm(): JSX.Element {
                 setRating(parseInt(target.value, 10));
               }}
               checked={rating === parseInt(value, 10)}
+              disabled={isReviewSending}
             />
             <label
               htmlFor={`${value}-stars`}
@@ -68,11 +69,11 @@ function ReviewForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        maxLength={300}
         value={comment}
         onChange={({target}: ChangeEvent<HTMLTextAreaElement>) => {
           setComment(target.value);
         }}
+        disabled={isReviewSending}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -82,7 +83,7 @@ function ReviewForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={comment.length < 50 || rating === 0 || isReviewSending}
+          disabled={comment.length < 50 || comment.length >= 300 || rating === 0 || isReviewSending}
         >
           {isReviewSending ? 'Submiting' : 'Submit'}
         </button>

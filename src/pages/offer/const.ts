@@ -7,3 +7,7 @@ export const ReviewRating = {
   '2': 'badly',
   '1': 'terribly'
 };
+
+export const DateFormat = {
+  REVIEW_DATE: 'MMMM YYYY'
+};

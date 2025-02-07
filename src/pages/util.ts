@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export const getRandomInteger = (min: number, max: number) => {
   // случайное число от min до (max+1)
   const rand = min + Math.random() * (max + 1 - min);
@@ -5,6 +7,8 @@ export const getRandomInteger = (min: number, max: number) => {
 };
 
 export const getRating = (rating: number) => Math.round(rating) * 20;
+
+export const changeDateFormat = (date: string, format: string) => dayjs(date).format(format);
 
 export const makeFirstCharBig = (word: string) => {
   const bigFirstChar = word.charAt(0).toUpperCase();

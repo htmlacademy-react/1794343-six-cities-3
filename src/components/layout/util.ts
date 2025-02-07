@@ -3,6 +3,7 @@ import { AppRoute } from '../const';
 const getLayoutState = (pathname: AppRoute) => {
 
   let rootClassName = '';
+  let favoriteEmptyClassName = '';
   let shouldRenderUser = true;
   let shouldRenderFooter = false;
 
@@ -11,6 +12,7 @@ const getLayoutState = (pathname: AppRoute) => {
     shouldRenderUser = false;
   } else if (pathname === AppRoute.Favorites) {
     shouldRenderFooter = true;
+    favoriteEmptyClassName = 'page--favorites-empty';
   } else {
     const isCityRoute = pathname === AppRoute.Root || pathname.includes(`${AppRoute.Root}?city=`);
     if (isCityRoute) {
@@ -18,7 +20,7 @@ const getLayoutState = (pathname: AppRoute) => {
     }
   }
 
-  return {rootClassName, shouldRenderUser, shouldRenderFooter};
+  return {rootClassName, shouldRenderUser, shouldRenderFooter, favoriteEmptyClassName};
 };
 
 export {getLayoutState};

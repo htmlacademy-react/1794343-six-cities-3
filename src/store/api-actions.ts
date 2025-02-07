@@ -8,7 +8,7 @@ import {
   requireAuthorization,
   setDataLoadingStatus,
   setOfferLoadingStatus,
-  setFavoritesLoadingStatus,
+  //setFavoritesLoadingStatus,
   setNotFoundStatus,
   setReviewSendingStatus,
   setEmail,
@@ -153,10 +153,10 @@ export const fetchFavoriteOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'loadFavoriteOffers',
   async (_arg, { dispatch, extra: api}) => {
-    dispatch(setFavoritesLoadingStatus(true));
+    //dispatch(setFavoritesLoadingStatus(true));
     const {data} = await api.get<OfferType[]>(APIRoute.Favorite);
     dispatch(loadFavoriteOffers(data));
-    dispatch(setFavoritesLoadingStatus(false));
+    //dispatch(setFavoritesLoadingStatus(false));
   },
 );
 
