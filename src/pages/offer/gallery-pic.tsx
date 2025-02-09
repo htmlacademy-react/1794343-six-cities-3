@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { OfferType } from '../../components/offer-card/types';
 const IMAGES_COUNT = 6;
 
@@ -5,7 +6,7 @@ type GalleryProps = {
   offer: OfferType;
 }
 
-function GalleryPic({offer}: GalleryProps): JSX.Element {
+const GalleryPic = memo(({offer}: GalleryProps): JSX.Element => {
   const {images} = offer;
   const shownImages = images.slice(0, IMAGES_COUNT);
   return (
@@ -18,6 +19,8 @@ function GalleryPic({offer}: GalleryProps): JSX.Element {
         ))}
       </div>
     </div>);
-}
+});
+
+GalleryPic.displayName = 'GalleryPic';
 
 export default GalleryPic;

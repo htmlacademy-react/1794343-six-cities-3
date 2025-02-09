@@ -1,11 +1,11 @@
-import React, { FormEvent, useState, ChangeEvent } from 'react';
+import React, { FormEvent, useState, ChangeEvent, memo } from 'react';
 import { ReviewRating } from './const';
 import { useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import { addReviewAction } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
-import { fetchReviewsAction } from '../../store/api-actions';
+import { useEffect } from 'react';
 
-function ReviewForm(): JSX.Element {
+const ReviewForm = memo((): JSX.Element => {
   const ratings = Object.entries(ReviewRating);
 
   const [rating, setRating] = useState(0);
@@ -13,6 +13,7 @@ function ReviewForm(): JSX.Element {
 
   const {id} = useParams();
   const isReviewSending = useAppSelector((state) => state.isReviewSending);
+  const isReviewSendingError = useAppSelector((state) => state.isReviewSendingError);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -23,11 +24,15 @@ function ReviewForm(): JSX.Element {
         comment,
         rating
       }));
-      dispatch(fetchReviewsAction(id));
+    }
+  };
+
+  useEffect(() => {
+    if (!isReviewSendingError && !isReviewSending) {
       setRating(0);
       setComment('');
     }
-  };
+  }, [isReviewSendingError, isReviewSending]);
 
   return (
     <form
@@ -90,6 +95,8 @@ function ReviewForm(): JSX.Element {
       </div>
     </form>
   );
-}
+});
+
+ReviewForm.displayName = 'ReviewForm';
 
 export default ReviewForm;

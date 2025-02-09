@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Nullable } from 'vitest';
 import { OfferType } from '../../components/offer-card/types';
 import OffersList from '../../components/offers-list';
@@ -6,6 +6,7 @@ import Map from '../../components/map.tsx';
 import SortingForm from './sorting-form.tsx';
 import { isPlural } from '../util.ts';
 import { SortingOption } from './const.ts';
+import { getSortingOffers } from './util.ts';
 
 type MainContentProps = {
   currentCity: string;
@@ -15,11 +16,16 @@ type MainContentProps = {
 function MainContent({currentOffers, currentCity}: MainContentProps): JSX.Element {
 
   const [activeOffer, setactiveOffer] = useState<Nullable<OfferType>>(null);
-  const handleMouseHover = (offer?: OfferType) => {
+  const handleMouseHover = useCallback((offer?: OfferType) => {
     setactiveOffer (offer || null);
-  };
+  }, []);
 
   const [currentOption, setCurrentOption] = useState(SortingOption.POPULAR);
+  const handleOptionChange = useCallback((option: string) => {
+    setCurrentOption(option);
+  }, []);
+
+  const sortedOffers = useMemo(() => getSortingOffers(currentOption, currentOffers), [currentOption, currentOffers]);
 
   return (
     <div className="cities__places-container container">
@@ -30,12 +36,11 @@ function MainContent({currentOffers, currentCity}: MainContentProps): JSX.Elemen
         </b>
         <SortingForm
           currentOption={currentOption}
-          onOptionChange={(option) => setCurrentOption(option)}
+          onOptionChange={handleOptionChange}
         />
         <div className="cities__places-list places__list tabs__content">
           <OffersList
-            currentOption={currentOption}
-            offers={currentOffers}
+            offers={sortedOffers}
             handleMouseHover={handleMouseHover}
           />
         </div>

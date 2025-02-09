@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { getLayoutState } from './util';
 import cn from 'classnames';
@@ -6,6 +6,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/use-store';
 import { logoutAction } from '../../store/api-actions';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
 import { useEffect } from 'react';
+import HeaderLogo from './header-logo';
 
 function Layout(): JSX.Element {
   const {pathname} = useLocation();
@@ -39,14 +40,7 @@ function Layout(): JSX.Element {
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            <div className="header__left">
-              <NavLink
-                className={({ isActive }) => (isActive ? 'header__logo-link header__logo-link--active' : 'header__logo-link')}
-                to={AppRoute.Root}
-              >
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </NavLink>
-            </div>
+            <HeaderLogo />
             {
               shouldRenderUser ? (
                 <nav className="header__nav">

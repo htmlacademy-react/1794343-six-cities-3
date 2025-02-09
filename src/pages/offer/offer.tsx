@@ -7,6 +7,8 @@ import GalleryPic from './gallery-pic';
 import Reviews from './reviews';
 import IsideList from './inside-list';
 import ReviewForm from './review-form';
+import FavoriteButton from '../../components/favorite-button/favorite-button.tsx';
+import { FavoriteButtonPlace } from '../../components/favorite-button/const.ts';
 import NotFound from '../not-found/not-found.tsx';
 import { OfferType } from '../../components/offer-card/types';
 import Map from '../../components/map.tsx';
@@ -17,7 +19,6 @@ import { useEffect } from 'react';
 import { fetchCurrentOfferAction, fetchNearOffersAction, fetchReviewsAction } from '../../store/api-actions.ts';
 import { useParams } from 'react-router-dom';
 import cn from 'classnames';
-
 
 function Offer(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -44,12 +45,10 @@ function Offer(): JSX.Element {
     return <Loading />;
   }
 
-
   const {
     title,
     type,
     price,
-    isFavorite,
     isPremium,
     rating,
     description,
@@ -78,12 +77,10 @@ function Offer(): JSX.Element {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <button className={`offer__bookmark-button ${isFavorite ? 'offer__bookmark-button--active' : ''} button`} type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">{isFavorite ? 'In' : 'To'} bookmarks</span>
-                </button>
+                <FavoriteButton
+                  offer={offer}
+                  place={FavoriteButtonPlace.OfferPage}
+                />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

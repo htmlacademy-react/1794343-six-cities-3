@@ -6,17 +6,22 @@ import {
   requireAuthorization,
   setDataLoadingStatus,
   setOfferLoadingStatus,
-  setFavoritesLoadingStatus,
+  setChangingFavoriteStatus,
+  //setFavoritesLoadingStatus,
   setReviewSendingStatus,
   setNotFoundStatus,
   setEmail,
   loadNearOffers,
   loadReviews,
-  loadFavoriteOffers
+  addReview,
+  loadFavoriteOffers,
+  changeFavorite,
+  setReviewSendingError
 } from './actions';
 import { AuthorizationStatus } from '../components/const';
 import { OfferType } from '../components/offer-card/types';
 import { ReviewType } from '../pages/offer/types';
+import { FavoritesStatus } from '../components/favorite-button/const';
 
 type InitialState = {
   offers: OfferType[];
@@ -28,8 +33,10 @@ type InitialState = {
   authorizationStatus: AuthorizationStatus;
   isDataLoading: boolean;
   isOfferLoading: boolean;
-  isFavoritesLoading: boolean;
+  //isFavoritesLoading: boolean;
+  isFavoriteChanging: boolean;
   isReviewSending: boolean;
+  isReviewSendingError: boolean;
   isNotFound: boolean;
   email: string;
 };
@@ -44,8 +51,10 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoading: false,
   isOfferLoading: true,
-  isFavoritesLoading: true,
+  isFavoriteChanging: false,
+  //isFavoritesLoading: true,
   isReviewSending: false,
+  isReviewSendingError: false,
   isNotFound: false,
   email: '',
 };
@@ -64,8 +73,20 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadReviews, (state, action) => {
       state.reviews = action.payload;
     })
+    .addCase(addReview, (state, action) => {
+      state.reviews.push(action.payload);
+    })
     .addCase(loadFavoriteOffers, (state, action) => {
       state.favoriteOffers = action.payload;
+    })
+    .addCase(changeFavorite, (state, action) => {
+      const {offer, status} = action.payload;
+      if (status === FavoritesStatus.ADDED) {
+        state.favoriteOffers.push(offer);
+      } else {
+        state.favoriteOffers = state.favoriteOffers.filter((favoriteOffer) =>
+          favoriteOffer.id !== offer.id);
+      }
     })
     .addCase(setCurrentOfferId, (state, action) => {
       state.currentOfferId = action.payload;
@@ -79,11 +100,17 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setOfferLoadingStatus, (state, action) => {
       state.isOfferLoading = action.payload;
     })
-    .addCase(setFavoritesLoadingStatus, (state, action) => {
+    /*.addCase(setFavoritesLoadingStatus, (state, action) => {
       state.isFavoritesLoading = action.payload;
-    })
+    })*/
     .addCase(setReviewSendingStatus, (state, action) => {
       state.isReviewSending = action.payload;
+    })
+    .addCase(setReviewSendingError, (state, action) => {
+      state.isReviewSendingError = action.payload;
+    })
+    .addCase(setChangingFavoriteStatus, (state, action) => {
+      state.isFavoriteChanging = action.payload;
     })
     .addCase(setNotFoundStatus, (state, action) => {
       state.isNotFound = action.payload;

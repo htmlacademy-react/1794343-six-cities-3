@@ -9,14 +9,10 @@ import Offer from '../../pages/offer';
 import NotFound from '../../pages/not-found';
 import Loading from '../../pages/loadig';
 import PrivateRoute from '../private-route';
-import { OfferType } from '../offer-card/types';
 import { useAppSelector } from '../../hooks/use-store';
 
-type AppProps = {
-  offers: OfferType[];
-}
 
-function App ({offers}: AppProps): JSX.Element {
+function App (): JSX.Element {
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
@@ -30,7 +26,7 @@ function App ({offers}: AppProps): JSX.Element {
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout offers={offers} />}>
+          <Route element={<Layout />}>
             <Route
               element={<Main/>}
               path={AppRoute.Root}

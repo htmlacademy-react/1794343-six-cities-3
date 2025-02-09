@@ -1,4 +1,5 @@
 import { store } from '.';
+import { OfferType } from '../components/offer-card/types';
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
@@ -20,4 +21,14 @@ export type ReviewData = {
   id: string;
   comment: string;
   rating: number;
+};
+
+export type ChangeFavoriteData = {
+  id: string;
+  status: number;
+};
+
+export type ChangeFavoriteResponse = {
+  offer: OfferType;
+  status: number;
 };

@@ -1,6 +1,12 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { State, AppDispatch, UserData, AuthData, ReviewData } from './types';
+import {
+  State,
+  AppDispatch,
+  UserData,
+  AuthData,
+  ReviewData,
+  ChangeFavoriteData } from './types';
 import {
   loadCurrentOffer,
   loadOffers,
@@ -10,10 +16,14 @@ import {
   setOfferLoadingStatus,
   //setFavoritesLoadingStatus,
   setNotFoundStatus,
+  setChangingFavoriteStatus,
   setReviewSendingStatus,
+  setReviewSendingError,
   setEmail,
   loadReviews,
+  addReview,
   loadFavoriteOffers,
+  changeFavorite
 } from './actions';
 import { APIRoute, AuthorizationStatus } from '../components/const';
 import { OfferType } from '../components/offer-card/types';
@@ -76,14 +86,19 @@ export const addReviewAction = createAsyncThunk<void, ReviewData, {
   'addReview',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
     try {
+      dispatch(setReviewSendingError(false));
       dispatch(setReviewSendingStatus(true));
-      await api.post<ReviewType[]>(`${APIRoute.Reviews}/${id}`, {comment, rating});
+      const {data} = await api.post<ReviewType>(`${APIRoute.Reviews}/${id}`, {comment, rating});
+      dispatch(addReview(data));
       dispatch(setReviewSendingStatus(false));
+    } catch {
+      dispatch(setReviewSendingError(true));
     } finally {
       dispatch(setReviewSendingStatus(false));
     }
   },
 );
+
 export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -96,6 +111,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
       dropToken();
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
       dispatch(setEmail(''));
+      dispatch(loadFavoriteOffers([]));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -157,6 +173,23 @@ export const fetchFavoriteOffersAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<OfferType[]>(APIRoute.Favorite);
     dispatch(loadFavoriteOffers(data));
     //dispatch(setFavoritesLoadingStatus(false));
+  },
+);
+
+export const fetchChangeFavorite = createAsyncThunk<void, ChangeFavoriteData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'changeFavorite',
+  async ({id, status}, { dispatch, extra: api}) => {
+    try {
+      dispatch(setChangingFavoriteStatus(true));
+      const {data} = await api.post<OfferType>(`${APIRoute.Favorite}/${id}/${status}`);
+      dispatch(changeFavorite({offer: data, status}));
+    } finally {
+      dispatch(setChangingFavoriteStatus(false));
+    }
   },
 );
 
