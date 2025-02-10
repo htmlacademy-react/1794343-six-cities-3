@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { getLayoutState } from './util';
 import cn from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../hooks/use-store';
@@ -7,6 +7,8 @@ import { logoutAction } from '../../store/api-actions';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import HeaderLogo from './header-logo';
+import { getAuthorizationStatus, getEmail } from '../../store/user-process/selectors';
+import { getFavortiteOffers } from '../../store/favorites/selectors';
 
 function Layout(): JSX.Element {
   const {pathname} = useLocation();
@@ -17,9 +19,9 @@ function Layout(): JSX.Element {
     favoriteEmptyClassName
   } = getLayoutState(pathname as AppRoute);
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
-  const email = useAppSelector((state) => state.email);
+  const email = useAppSelector(getEmail);
 
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -27,7 +29,7 @@ function Layout(): JSX.Element {
     }
   }, [dispatch, authorizationStatus]);
 
-  const offers = useAppSelector((state) => state.favoriteOffers);
+  const offers = useAppSelector(getFavortiteOffers);
   const isEmpty = offers.length === 0;
 
   return (

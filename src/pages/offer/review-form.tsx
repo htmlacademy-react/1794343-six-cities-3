@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import { addReviewAction } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { getisReviewSending, getisReviewSendingError } from '../../store/reviews/selectors';
 
 const ReviewForm = memo((): JSX.Element => {
   const ratings = Object.entries(ReviewRating);
@@ -12,8 +13,8 @@ const ReviewForm = memo((): JSX.Element => {
   const [comment, setComment] = useState('');
 
   const {id} = useParams();
-  const isReviewSending = useAppSelector((state) => state.isReviewSending);
-  const isReviewSendingError = useAppSelector((state) => state.isReviewSendingError);
+  const isReviewSending = useAppSelector(getisReviewSending);
+  const isReviewSendingError = useAppSelector(getisReviewSendingError);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {

@@ -1,12 +1,10 @@
 import { memo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { AppRoute } from '../const';
+import { AppRoute } from '../../const';
 import { getOfferCardState } from './util';
 import { OfferType } from './types';
 import { makeFirstCharBig } from '../../pages/util';
 import { getRating } from '../../pages/util';
-import { useAppDispatch } from '../../hooks/use-store';
-import { setCurrentOfferId } from '../../store/actions';
 import FavoriteButton from '../favorite-button';
 import { FavoriteButtonPlace } from '../favorite-button/const';
 
@@ -18,12 +16,10 @@ type CardProps = {
 const OfferCard = memo(({offer, handleMouseHover}: CardProps): JSX.Element => {
   const {pathname} = useLocation();
   const {className, classNameInfo, width, height} = getOfferCardState(pathname as AppRoute);
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleLinkClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
-    dispatch(setCurrentOfferId(offer.id));
     navigate(`/offer/${offer.id}`);
   };
 

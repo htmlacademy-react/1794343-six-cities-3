@@ -4,9 +4,10 @@ import { isPlural, changeDateFormat } from '../util';
 import { REVIEWS_SHOWN_COUNT, DateFormat } from './const';
 import { getRating } from '../util';
 import { useAppSelector } from '../../hooks/use-store';
+import { getReviews } from '../../store/reviews/selectors';
 
 const Reviews = memo((): JSX.Element => {
-  const reviews = useAppSelector((state) => state.reviews);
+  const reviews = useAppSelector(getReviews);
   const filteredReviews = [...reviews].sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
   const shownReviews = filteredReviews.slice(0, REVIEWS_SHOWN_COUNT);
 

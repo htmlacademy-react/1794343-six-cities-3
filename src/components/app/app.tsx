@@ -1,6 +1,6 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import Layout from '../layout';
 import Main from '../../pages/main';
 import Login from '../../pages/login';
@@ -10,11 +10,13 @@ import NotFound from '../../pages/not-found';
 import Loading from '../../pages/loadig';
 import PrivateRoute from '../private-route';
 import { useAppSelector } from '../../hooks/use-store';
+import { getisDataLoading } from '../../store/main/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 function App (): JSX.Element {
-  const isDataLoading = useAppSelector((state) => state.isDataLoading);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isDataLoading = useAppSelector(getisDataLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isDataLoading) {
     return (

@@ -1,7 +1,7 @@
 import { OfferType } from '../../components/offer-card/types';
 const NEAR_OFFERS_COUNT = 3;
 
-const getNearOffers = (offers: OfferType[], offer: OfferType) => {
+const getShownNearOffers = (offers: OfferType[], offer: OfferType) => {
   const nearOffers: OfferType[] = [];
 
   for (let i = 0; i < offers.length; i++) {
@@ -15,4 +15,4 @@ const getNearOffers = (offers: OfferType[], offer: OfferType) => {
   return nearOffers;
 };
 
-export {getNearOffers};
+export {getShownNearOffers};

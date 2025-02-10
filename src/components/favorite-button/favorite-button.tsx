@@ -4,10 +4,12 @@ import cn from 'classnames';
 import { getFavoriteButtonState } from './util';
 import { FavoriteButtonPlace } from './const';
 import { OfferType } from '../offer-card/types';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks/use-store';
 import { useAppDispatch } from '../../hooks/use-store';
 import { fetchChangeFavorite } from '../../store/api-actions';
+import { getFavortiteOffers, getisFavoriteChanging } from '../../store/favorites/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 type CardProps = {
   offer: OfferType;
@@ -19,11 +21,11 @@ const FavoriteButton = memo(({offer, place} : CardProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const offers = useAppSelector((state) => state.favoriteOffers);
+  const offers = useAppSelector(getFavortiteOffers);
   const isFavorite = offers.some((currOffer) => currOffer.id === offer.id);
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isChanging = useAppSelector((state) => state.isFavoriteChanging);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isChanging = useAppSelector(getisFavoriteChanging);
 
   const handleClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {

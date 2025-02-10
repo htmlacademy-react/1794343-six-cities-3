@@ -1,5 +1,5 @@
 import {Helmet} from 'react-helmet-async';
-import { AuthorizationStatus } from '../../components/const';
+import { AuthorizationStatus } from '../../const.ts';
 import { makeFirstCharBig, isPlural } from '../util';
 import Loading from '../loadig/loading.tsx';
 import OffersList from '../../components/offers-list';
@@ -12,20 +12,22 @@ import { FavoriteButtonPlace } from '../../components/favorite-button/const.ts';
 import NotFound from '../not-found/not-found.tsx';
 import { OfferType } from '../../components/offer-card/types';
 import Map from '../../components/map.tsx';
-import { getNearOffers } from './util.ts';
+import { getShownNearOffers } from './util.ts';
 import { getRating } from '../util';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-store.ts';
 import { useEffect } from 'react';
 import { fetchCurrentOfferAction, fetchNearOffersAction, fetchReviewsAction } from '../../store/api-actions.ts';
 import { useParams } from 'react-router-dom';
 import cn from 'classnames';
+import { getAuthorizationStatus } from '../../store/user-process/selectors.ts';
+import { getCurrentOffer, getisNotFound, getisOfferLoading, getNearOffers} from '../../store/offer/selectors.ts';
 
 function Offer(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const offer = useAppSelector((state) => state.currentOffer) as OfferType;
-  const nearOffers = useAppSelector((state) => state.nearOffers);
-  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
-  const isNotFound = useAppSelector((state) => state.isNotFound);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const offer = useAppSelector(getCurrentOffer) as OfferType;
+  const nearOffers = useAppSelector(getNearOffers);
+  const isOfferLoading = useAppSelector(getisOfferLoading);
+  const isNotFound = useAppSelector(getisNotFound);
   const dispatch = useAppDispatch();
   const offerId = useParams().id;
 
@@ -56,7 +58,7 @@ function Offer(): JSX.Element {
     host,
     maxAdults} = offer;
 
-  const shownNearOffersCards = getNearOffers(nearOffers, offer);
+  const shownNearOffersCards = getShownNearOffers(nearOffers, offer);
   const shownNearOffersMap: OfferType[] = [...shownNearOffersCards, offer];
 
   return (
