@@ -17,6 +17,11 @@ export type UserData = {
   token: string;
 };
 
+export type UserDataResponse = {
+  email: string;
+  avatarUrl: string;
+}
+
 export type ReviewData = {
   id: string;
   comment: string;
