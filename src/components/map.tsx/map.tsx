@@ -52,6 +52,10 @@ const Map = memo(({offers, activeOffer}: MapProps): JSX.Element => {
           })
           .addTo(markerLayer.current);
       });
+      const currentMarkerLayer = markerLayer.current;
+      return () => {
+        currentMarkerLayer.clearLayers();
+      };
     }
   }, [map, offers, activeOffer]);
 

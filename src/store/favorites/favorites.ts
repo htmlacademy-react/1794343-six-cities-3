@@ -3,6 +3,7 @@ import { NameSpace } from '../../const';
 import { OfferType } from '../../components/offer-card/types';
 import { fetchFavoriteOffersAction, fetchChangeFavorite } from '../api-actions';
 import { FavoritesStatus } from '../../components/favorite-button/const';
+import { logoutAction } from '../api-actions';
 
 type InitialState = {
   favoriteOffers: OfferType[];
@@ -38,6 +39,9 @@ export const favoritesProcess = createSlice({
       })
       .addCase(fetchChangeFavorite.rejected, (state) => {
         state.isFavoriteChanging = false;
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.favoriteOffers = [];
       });
   }
 });

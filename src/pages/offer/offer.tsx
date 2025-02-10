@@ -1,19 +1,18 @@
 import {Helmet} from 'react-helmet-async';
 import { AuthorizationStatus } from '../../const.ts';
-import { makeFirstCharBig, isPlural } from '../util';
+import { makeFirstCharBig, isPlural, getRating } from '../util';
 import Loading from '../loadig/loading.tsx';
 import OffersList from '../../components/offers-list';
 import GalleryPic from './gallery-pic';
 import Reviews from './reviews';
 import IsideList from './inside-list';
 import ReviewForm from './review-form';
-import FavoriteButton from '../../components/favorite-button/favorite-button.tsx';
+import FavoriteButton from '../../components/favorite-button';
 import { FavoriteButtonPlace } from '../../components/favorite-button/const.ts';
-import NotFound from '../not-found/not-found.tsx';
+import NotFound from '../not-found';
 import { OfferType } from '../../components/offer-card/types';
 import Map from '../../components/map.tsx';
 import { getShownNearOffers } from './util.ts';
-import { getRating } from '../util';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-store.ts';
 import { useEffect } from 'react';
 import { fetchCurrentOfferAction, fetchNearOffersAction, fetchReviewsAction } from '../../store/api-actions.ts';
@@ -21,6 +20,8 @@ import { useParams } from 'react-router-dom';
 import cn from 'classnames';
 import { getAuthorizationStatus } from '../../store/user-process/selectors.ts';
 import { getCurrentOffer, getisNotFound, getisOfferLoading, getNearOffers} from '../../store/offer/selectors.ts';
+import { getisReviewSendingError } from '../../store/reviews/selectors.ts';
+import {toast} from 'react-toastify';
 
 function Offer(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -28,6 +29,7 @@ function Offer(): JSX.Element {
   const nearOffers = useAppSelector(getNearOffers);
   const isOfferLoading = useAppSelector(getisOfferLoading);
   const isNotFound = useAppSelector(getisNotFound);
+  const isReviewSendingError = useAppSelector(getisReviewSendingError);
   const dispatch = useAppDispatch();
   const offerId = useParams().id;
 
@@ -38,6 +40,12 @@ function Offer(): JSX.Element {
       dispatch(fetchReviewsAction(offerId));
     }
   }, [dispatch, offerId]);
+
+  useEffect(() => {
+    if (isReviewSendingError) {
+      toast.error('Ошибка при отправке отзыва. Пожалуйста, попробуйте еще раз.');
+    }
+  }, [isReviewSendingError]);
 
   if (isNotFound) {
     return <NotFound />;

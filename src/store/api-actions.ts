@@ -7,34 +7,35 @@ import {
   AuthData,
   ReviewData,
   ChangeFavoriteData,
-  ChangeFavoriteResponse} from './types';
+  ChangeFavoriteResponse,
+  UserDataResponse} from './types';
 
 import { APIRoute } from '../const';
 import { OfferType } from '../components/offer-card/types';
 import { saveToken, dropToken } from '../services/token';
 import { ReviewType } from '../pages/offer/types';
 
-export const checkAuthAction = createAsyncThunk<string, undefined, {
+export const checkAuthAction = createAsyncThunk<UserDataResponse, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
   async (_arg, {extra: api}) => {
-    const {data: {email}} = await api.get<UserData>(APIRoute.Login);
-    return email;
+    const {data: {email, avatarUrl}} = await api.get<UserData>(APIRoute.Login);
+    return ({email, avatarUrl});
   });
 
-export const loginAction = createAsyncThunk<string, AuthData, {
+export const loginAction = createAsyncThunk<UserDataResponse, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/login',
   async ({email, password}, {extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+    const {data: {token, avatarUrl}} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(token);
-    return email;
+    return ({email, avatarUrl});
   }
 );
 
@@ -47,7 +48,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    //dispatch(loadFavoriteOffers([]));
   },
 );
 

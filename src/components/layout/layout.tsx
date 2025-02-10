@@ -4,10 +4,8 @@ import { getLayoutState } from './util';
 import cn from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../hooks/use-store';
 import { logoutAction } from '../../store/api-actions';
-import { fetchFavoriteOffersAction } from '../../store/api-actions';
-import { useEffect } from 'react';
 import HeaderLogo from './header-logo';
-import { getAuthorizationStatus, getEmail } from '../../store/user-process/selectors';
+import { getAuthorizationStatus, getAvatarURL, getEmail } from '../../store/user-process/selectors';
 import { getFavortiteOffers } from '../../store/favorites/selectors';
 
 function Layout(): JSX.Element {
@@ -22,12 +20,7 @@ function Layout(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const email = useAppSelector(getEmail);
-
-  useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(fetchFavoriteOffersAction());
-    }
-  }, [dispatch, authorizationStatus]);
+  const avatarURL = useAppSelector(getAvatarURL);
 
   const offers = useAppSelector(getFavortiteOffers);
   const isEmpty = offers.length === 0;
@@ -51,7 +44,12 @@ function Layout(): JSX.Element {
                       <Link className="header__nav-link header__nav-link--profile"
                         to={AppRoute.Favorites}
                       >
-                        <div className="header__avatar-wrapper user__avatar-wrapper">
+                        <div
+                          className="header__avatar-wrapper user__avatar-wrapper"
+                          style={{
+                            backgroundImage: `url(${avatarURL})`,
+                            borderRadius: '50%'}}
+                        >
                         </div>
                         {authorizationStatus === AuthorizationStatus.Auth ? (
                           <>

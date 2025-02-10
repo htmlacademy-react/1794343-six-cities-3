@@ -9,14 +9,23 @@ import Offer from '../../pages/offer';
 import NotFound from '../../pages/not-found';
 import Loading from '../../pages/loadig';
 import PrivateRoute from '../private-route';
-import { useAppSelector } from '../../hooks/use-store';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-store';
 import { getisDataLoading } from '../../store/main/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { useEffect } from 'react';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
 
 
 function App (): JSX.Element {
   const isDataLoading = useAppSelector(getisDataLoading);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [dispatch, authorizationStatus]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isDataLoading) {
     return (

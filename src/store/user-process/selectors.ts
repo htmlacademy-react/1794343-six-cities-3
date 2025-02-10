@@ -10,3 +10,6 @@ export const getAuthCheckedStatus = (state: State): boolean =>
 
 export const getEmail = (state: State) =>
   state[NameSpace.User].email;
+
+export const getAvatarURL = (state: State) =>
+  state[NameSpace.User].avatarUrl;

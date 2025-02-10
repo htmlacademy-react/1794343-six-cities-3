@@ -27,7 +27,6 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.request.use(
     (config) => {
       const token = getToken();
-
       if (token && (config.headers)) {
         config.headers['X-Token'] = token;
       }
