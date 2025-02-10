@@ -1,9 +1,9 @@
-
+import { memo } from 'react';
 import { cities } from './const';
 import { NavLink, useSearchParams } from 'react-router-dom';
 
 
-function CitiesNav(): JSX.Element {
+const CitiesNav = memo((): JSX.Element => {
   const [searchParams] = useSearchParams();
   const currentCity = searchParams.get('city') || cities[0];
 
@@ -26,6 +26,7 @@ function CitiesNav(): JSX.Element {
         </ul>
       </section>
     </div>);
-}
+});
 
+CitiesNav.displayName = 'CitiesNav';
 export default CitiesNav;

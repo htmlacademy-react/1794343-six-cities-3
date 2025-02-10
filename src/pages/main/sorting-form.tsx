@@ -1,7 +1,7 @@
+import { memo } from 'react';
 import cn from 'classnames';
 import { SortingOption } from './const';
 import { makeFirstCharBig } from '../util';
-import { useEffect } from 'react';
 import { useBoolean } from '../../hooks/use-boolean';
 
 type SortingFormProps = {
@@ -9,11 +9,8 @@ type SortingFormProps = {
   onOptionChange: (option: string) => void;
 }
 
-function SortingForm({currentOption, onOptionChange}: SortingFormProps): JSX.Element {
-  const {isOn, off, toggle} = useBoolean(false);
-  useEffect(() => {
-    //здесь будет слушатель esc кейдаун
-  }, [isOn, off]);
+const SortingForm = memo(({currentOption, onOptionChange}: SortingFormProps): JSX.Element => {
+  const {isOn, toggle} = useBoolean(false);
 
   return (
     <form className="places__sorting" action="#" method="get"
@@ -47,6 +44,8 @@ function SortingForm({currentOption, onOptionChange}: SortingFormProps): JSX.Ele
         ))}
       </ul>
     </form>);
-}
+});
+
+SortingForm.displayName = 'SortingForm';
 
 export default SortingForm;

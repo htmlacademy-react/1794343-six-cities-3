@@ -1,10 +1,11 @@
+import { memo } from 'react';
 import { OfferType } from '../../components/offer-card/types';
 
 type IsideListProps = {
   offer: OfferType;
 }
 
-function IsideList({offer}:IsideListProps): JSX.Element {
+const IsideList = memo(({offer}:IsideListProps): JSX.Element => {
   const goods = offer.goods;
 
   return (
@@ -15,6 +16,8 @@ function IsideList({offer}:IsideListProps): JSX.Element {
         </li>
       ))}
     </ul>);
-}
+});
+
+IsideList.displayName = 'IsideList';
 
 export default IsideList;

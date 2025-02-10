@@ -5,15 +5,16 @@ import FavoritesEmpty from './favorites-empty';
 import cn from 'classnames';
 import { filterOffersByCity } from '../main/util';
 import { cities } from '../main/const';
-import { AppRoute } from '../../components/const';
+import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks/use-store';
+import { getFavortiteOffers } from '../../store/favorites/selectors';
 /*import { useEffect } from 'react';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
 import Loading from '../loadig';*/
 
 
 function Favorites(): JSX.Element {
-  const offers = useAppSelector((state) => state.favoriteOffers);
+  const offers = useAppSelector(getFavortiteOffers);
   const isEmpty = offers.length === 0;
   //const isFavoritesLoading = useAppSelector((state) => state.isFavoritesLoading);
   //const dispatch = useAppDispatch();

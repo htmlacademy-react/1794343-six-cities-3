@@ -6,12 +6,14 @@ import cn from 'classnames';
 import { useAppSelector } from '../../hooks/use-store.ts';
 import { cities } from './const.ts';
 import { useSearchParams } from 'react-router-dom';
+import { useMemo } from 'react';
+import { getOffers } from '../../store/main/selectors.ts';
 
 function Main(): JSX.Element {
   const [searchParams] = useSearchParams();
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const currentCity = searchParams.get('city') || cities[0];
-  const currentOffers = filterOffersByCity(offers, currentCity);
+  const currentOffers = useMemo(() => filterOffersByCity(offers, currentCity), [offers, currentCity]);
   const isEmpty = currentOffers.length === 0;
 
   return (

@@ -59,6 +59,8 @@ function Login(): JSX.Element {
                   name="password"
                   placeholder="Password"
                   required
+                  pattern="^(?=.*[A-Za-z])(?=.*\d).+$"
+                  title="Password must contain at least one letter and one number"
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>

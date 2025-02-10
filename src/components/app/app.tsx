@@ -1,6 +1,6 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import Layout from '../layout';
 import Main from '../../pages/main';
 import Login from '../../pages/login';
@@ -9,16 +9,14 @@ import Offer from '../../pages/offer';
 import NotFound from '../../pages/not-found';
 import Loading from '../../pages/loadig';
 import PrivateRoute from '../private-route';
-import { OfferType } from '../offer-card/types';
 import { useAppSelector } from '../../hooks/use-store';
+import { getisDataLoading } from '../../store/main/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
-type AppProps = {
-  offers: OfferType[];
-}
 
-function App ({offers}: AppProps): JSX.Element {
-  const isDataLoading = useAppSelector((state) => state.isDataLoading);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+function App (): JSX.Element {
+  const isDataLoading = useAppSelector(getisDataLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isDataLoading) {
     return (
@@ -30,7 +28,7 @@ function App ({offers}: AppProps): JSX.Element {
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout offers={offers} />}>
+          <Route element={<Layout />}>
             <Route
               element={<Main/>}
               path={AppRoute.Root}

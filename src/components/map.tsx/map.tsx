@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {useRef, useEffect} from 'react';
 import leaflet, { LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -23,9 +24,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [IconSetting.ICON_ANCHOR, IconSetting.ICON_HEIGHT]
 });
 
-function Map({offers, activeOffer}: MapProps): JSX.Element {
-  // берем первый оффер для передачи координат города в useMap
-  // (подойдет любой, т.к. сюда передали офферы только для конкретного города в main и в offer)
+const Map = memo(({offers, activeOffer}: MapProps): JSX.Element => {
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef, offers[0]);
   const markerLayer = useRef<LayerGroup>(leaflet.layerGroup());
@@ -63,6 +62,8 @@ function Map({offers, activeOffer}: MapProps): JSX.Element {
     >
     </div>
   );
-}
+});
+
+Map.displayName = 'Map';
 
 export default Map;
