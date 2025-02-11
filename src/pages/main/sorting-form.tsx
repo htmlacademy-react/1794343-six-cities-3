@@ -5,8 +5,8 @@ import { makeFirstCharBig } from '../util';
 import { useBoolean } from '../../hooks/use-boolean';
 
 type SortingFormProps = {
-  currentOption: string;
-  onOptionChange: (option: string) => void;
+  currentOption: SortingOption;
+  onOptionChange: (option: SortingOption) => void;
 }
 
 const SortingForm = memo(({currentOption, onOptionChange}: SortingFormProps): JSX.Element => {

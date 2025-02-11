@@ -4,5 +4,5 @@ export const IconSetting = {
   ICON_ANCHOR: 14,
   ICON_WIDTH: 27,
   ICON_HEIGHT: 39
-};
+} as const;
 

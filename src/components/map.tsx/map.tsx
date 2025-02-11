@@ -4,12 +4,11 @@ import leaflet, { LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
 import { OfferType } from '../offer-card/types';
-import { Nullable } from 'vitest';
 import { IconSetting } from './const';
 
 type MapProps = {
   offers: OfferType[];
-  activeOffer: Nullable<OfferType>;
+  activeOffer: OfferType | null | undefined;
 }
 
 const defaultCustomIcon = leaflet.icon({
