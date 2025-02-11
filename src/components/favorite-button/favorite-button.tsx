@@ -13,11 +13,11 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 type CardProps = {
   offer: OfferType;
-  place: string;
+  place: FavoriteButtonPlace;
 }
 
 const FavoriteButton = memo(({offer, place} : CardProps): JSX.Element => {
-  const {className, width, height} = getFavoriteButtonState(place as FavoriteButtonPlace);
+  const {className, width, height} = getFavoriteButtonState(place);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

@@ -56,7 +56,7 @@ export const fetchOffersAction = createAsyncThunk<OfferType[], undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'loadOffers',
+  'main/loadOffers',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<OfferType[]>(APIRoute.Offers);
     return data;
@@ -68,7 +68,7 @@ export const addReviewAction = createAsyncThunk<ReviewType, ReviewData, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'addReview',
+  'reviews/addReview',
   async ({id, comment, rating}, {extra: api}) => {
     const {data} = await api.post<ReviewType>(`${APIRoute.Reviews}/${id}`, {comment, rating});
     return data;
@@ -80,7 +80,7 @@ export const fetchCurrentOfferAction = createAsyncThunk<OfferType, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'loadCurrentOffer',
+  'offer/loadCurrentOffer',
   async (currentOfferId, { extra: api}) => {
     const {data} = await api.get<OfferType>(`${APIRoute.Offers}/${currentOfferId}`);
     return data;
@@ -92,7 +92,7 @@ export const fetchNearOffersAction = createAsyncThunk<OfferType[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'loadNearOffers',
+  'offer/loadNearOffers',
   async (currentOfferId, { extra: api}) => {
     const {data} = await api.get<OfferType[]>(`${APIRoute.Offers}/${currentOfferId}/nearby`);
     return data;
@@ -104,7 +104,7 @@ export const fetchReviewsAction = createAsyncThunk<ReviewType[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'loadReviews',
+  'reviews/loadReviews',
   async (currentOfferId, { extra: api}) => {
     const {data} = await api.get<ReviewType[]>(`${APIRoute.Reviews}/${currentOfferId}`);
     return data;
@@ -116,7 +116,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<OfferType[], undefined
   state: State;
   extra: AxiosInstance;
 }>(
-  'loadFavoriteOffers',
+  'favorites/loadOffers',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<OfferType[]>(APIRoute.Favorite);
     return data;
@@ -128,7 +128,7 @@ export const fetchChangeFavorite = createAsyncThunk<ChangeFavoriteResponse, Chan
   state: State;
   extra: AxiosInstance;
 }>(
-  'changeFavorite',
+  'favorites/changeFavorite',
   async ({id, status}, {extra: api}) => {
     const {data} = await api.post<OfferType>(`${APIRoute.Favorite}/${id}/${status}`);
     return({offer: data, status});

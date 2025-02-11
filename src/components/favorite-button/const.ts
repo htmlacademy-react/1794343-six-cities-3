@@ -3,7 +3,7 @@ export enum FavoriteButtonPlace {
   OfferPage = 'offer'
 }
 
-export const FavoritesStatus = {
-  ADDED: 1,
-  DELETED: 0
-};
+export enum FavoritesStatus {
+  ADDED = 1,
+  DELETED = 0
+}

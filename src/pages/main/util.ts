@@ -5,7 +5,7 @@ export function filterOffersByCity(offers: OfferType[], city: string) {
   return offers.filter((offer) => offer.city.name === city);
 }
 
-export function getSortingOffers(currentOption: string, offers: OfferType[]) {
+export function getSortingOffers(currentOption: SortingOption, offers: OfferType[]) {
   let sortedOffers = offers;
 
   switch (currentOption) {

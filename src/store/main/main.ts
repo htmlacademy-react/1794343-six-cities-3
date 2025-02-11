@@ -25,9 +25,9 @@ export const mainProcess = createSlice({
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isDataLoading = false;
-      });
-    /*.addCase(fetchOffersAction.rejected, (state) => {
+      })
+      .addCase(fetchOffersAction.rejected, (state) => {
         state.isDataLoading = false;
-      });*/
+      });
   }
 });

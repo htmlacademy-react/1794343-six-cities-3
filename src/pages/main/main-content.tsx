@@ -1,5 +1,4 @@
 import { useState, useCallback, useMemo } from 'react';
-import { Nullable } from 'vitest';
 import { OfferType } from '../../components/offer-card/types';
 import OffersList from '../../components/offers-list';
 import Map from '../../components/map.tsx';
@@ -15,13 +14,13 @@ type MainContentProps = {
 
 function MainContent({currentOffers, currentCity}: MainContentProps): JSX.Element {
 
-  const [activeOffer, setactiveOffer] = useState<Nullable<OfferType>>(null);
+  const [activeOffer, setactiveOffer] = useState<OfferType | null | undefined>(null);
   const handleMouseHover = useCallback((offer?: OfferType) => {
     setactiveOffer (offer || null);
   }, []);
 
   const [currentOption, setCurrentOption] = useState(SortingOption.POPULAR);
-  const handleOptionChange = useCallback((option: string) => {
+  const handleOptionChange = useCallback((option: SortingOption) => {
     setCurrentOption(option);
   }, []);
 
