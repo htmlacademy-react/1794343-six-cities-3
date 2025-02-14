@@ -4,10 +4,10 @@ import MainEmpty from './main-empty.tsx';
 import MainContent from './main-content.tsx';
 import cn from 'classnames';
 import { useAppSelector } from '../../hooks/use-store.ts';
-import { cities } from './const.ts';
+import { cities } from '../../helpers/const.ts';
 import { useSearchParams } from 'react-router-dom';
 import { useMemo } from 'react';
-import { getOffers } from '../../store/main/selectors.ts';
+import { getOffers } from '../../store/main-process/selectors.ts';
 
 function Main(): JSX.Element {
   const [searchParams] = useSearchParams();

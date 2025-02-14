@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../helpers/const';
 
 function NotFound(): JSX.Element {
   return (

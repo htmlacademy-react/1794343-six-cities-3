@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
-import { OfferType } from '../../components/offer-card/types';
+import { NameSpace } from '../../helpers/const';
+import { OfferType } from '../../helpers/types';
 import { fetchCurrentOfferAction, fetchNearOffersAction } from '../api-actions';
 
 type InitialState = {

@@ -1,11 +1,10 @@
 import { useState, useCallback, useMemo } from 'react';
-import { Nullable } from 'vitest';
-import { OfferType } from '../../components/offer-card/types';
+import { OfferType } from '../../helpers/types.ts';
 import OffersList from '../../components/offers-list';
 import Map from '../../components/map.tsx';
 import SortingForm from './sorting-form.tsx';
-import { isPlural } from '../util.ts';
-import { SortingOption } from './const.ts';
+import { isPlural } from '../helpers.ts';
+import { SortingOption } from './util.ts';
 import { getSortingOffers } from './util.ts';
 
 type MainContentProps = {
@@ -15,13 +14,13 @@ type MainContentProps = {
 
 function MainContent({currentOffers, currentCity}: MainContentProps): JSX.Element {
 
-  const [activeOffer, setactiveOffer] = useState<Nullable<OfferType>>(null);
+  const [activeOffer, setactiveOffer] = useState<OfferType | null | undefined>(null);
   const handleMouseHover = useCallback((offer?: OfferType) => {
     setactiveOffer (offer || null);
   }, []);
 
   const [currentOption, setCurrentOption] = useState(SortingOption.POPULAR);
-  const handleOptionChange = useCallback((option: string) => {
+  const handleOptionChange = useCallback((option: SortingOption) => {
     setCurrentOption(option);
   }, []);
 
@@ -46,12 +45,10 @@ function MainContent({currentOffers, currentCity}: MainContentProps): JSX.Elemen
         </div>
       </section>
       <div className="cities__right-section">
-        <section className="cities__map map">
-          <Map
-            offers={currentOffers}
-            activeOffer={activeOffer}
-          />
-        </section>
+        <Map
+          offers={currentOffers}
+          activeOffer={activeOffer}
+        />
       </div>
     </div>);
 }

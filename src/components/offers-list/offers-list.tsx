@@ -1,13 +1,13 @@
 import { memo } from 'react';
 import OfferCard from '../offer-card';
-import { OfferType } from '../offer-card/types';
+import { OfferType } from '../../helpers/types';
 
-type OfferListProps = {
+type OffersListProps = {
   offers: OfferType[];
   handleMouseHover?: (offer?: OfferType) => void;
 };
 
-const OffersList = memo(({offers, handleMouseHover}: OfferListProps) => (
+const OffersList = memo(({offers, handleMouseHover}: OffersListProps) => (
   <>
     {offers.map((offer) => (
       <OfferCard key={offer.id}

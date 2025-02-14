@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {NameSpace, AuthorizationStatus} from '../../const';
+import {NameSpace, AuthorizationStatus} from '../../helpers/const';
 import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
 
 type InitialState = {

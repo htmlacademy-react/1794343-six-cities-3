@@ -1,4 +1,4 @@
-import { NameSpace } from '../../const';
+import { NameSpace } from '../../helpers/const';
 import { State } from '../types';
 
 export const getReviews = (state: State) => state[NameSpace.Reviews].reviews;

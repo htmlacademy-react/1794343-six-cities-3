@@ -1,6 +1,6 @@
 import {useEffect, useState, useRef} from 'react';
 import leaflet from 'leaflet';
-import { OfferType } from '../components/offer-card/types';
+import { OfferType } from '../helpers/types';
 
 function useMap(
   mapRef: React.MutableRefObject<HTMLElement | null>,

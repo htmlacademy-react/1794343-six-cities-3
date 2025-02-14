@@ -1,12 +1,12 @@
 import { memo } from 'react';
 import cn from 'classnames';
-import { SortingOption } from './const';
-import { makeFirstCharBig } from '../util';
+import { SortingOption } from './util';
+import { makeFirstCharBig } from '../helpers';
 import { useBoolean } from '../../hooks/use-boolean';
 
 type SortingFormProps = {
-  currentOption: string;
-  onOptionChange: (option: string) => void;
+  currentOption: SortingOption;
+  onOptionChange: (option: SortingOption) => void;
 }
 
 const SortingForm = memo(({currentOption, onOptionChange}: SortingFormProps): JSX.Element => {

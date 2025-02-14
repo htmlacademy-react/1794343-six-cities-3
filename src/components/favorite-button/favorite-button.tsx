@@ -2,22 +2,22 @@ import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import { getFavoriteButtonState } from './util';
-import { FavoriteButtonPlace } from './const';
-import { OfferType } from '../offer-card/types';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { FavoriteButtonPlace } from './util';
+import { OfferType } from '../../helpers/types';
+import { AppRoute, AuthorizationStatus } from '../../helpers/const';
 import { useAppSelector } from '../../hooks/use-store';
 import { useAppDispatch } from '../../hooks/use-store';
 import { fetchChangeFavorite } from '../../store/api-actions';
-import { getFavortiteOffers, getisFavoriteChanging } from '../../store/favorites/selectors';
+import { getFavortiteOffers, getisFavoriteChanging } from '../../store/favorites-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
-type CardProps = {
+type FavoriteButtonProps = {
   offer: OfferType;
-  place: string;
+  place: FavoriteButtonPlace;
 }
 
-const FavoriteButton = memo(({offer, place} : CardProps): JSX.Element => {
-  const {className, width, height} = getFavoriteButtonState(place as FavoriteButtonPlace);
+const FavoriteButton = memo(({offer, place} : FavoriteButtonProps): JSX.Element => {
+  const {className, width, height} = getFavoriteButtonState(place);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
