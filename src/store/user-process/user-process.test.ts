@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { AuthorizationStatus } from '../../helpers/const';
+=======
+import { AuthorizationStatus } from '../../const';
+>>>>>>> 2ab1593a7f277d554cc184db6a70f4cd487bf2bd
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 import { userProcess } from './user-process';
 

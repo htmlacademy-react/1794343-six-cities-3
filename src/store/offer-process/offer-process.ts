@@ -28,10 +28,12 @@ export const offerProcess = createSlice({
         state.isOfferLoading = true;
       })
       .addCase(fetchCurrentOfferAction.fulfilled, (state, action) => {
+        state.isNotFound = false;
         state.isOfferLoading = false;
         state.currentOffer = action.payload;
       })
       .addCase(fetchCurrentOfferAction.rejected, (state) => {
+        state.isOfferLoading = false;
         state.isNotFound = true;
       })
       .addCase(fetchNearOffersAction.fulfilled, (state, action) => {
