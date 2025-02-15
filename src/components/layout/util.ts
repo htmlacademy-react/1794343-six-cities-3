@@ -1,4 +1,4 @@
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../helpers/const';
 
 const getLayoutState = (pathname: AppRoute) => {
 

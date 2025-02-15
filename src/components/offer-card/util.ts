@@ -1,4 +1,4 @@
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../helpers/const';
 
 const getOfferCardState = (pathname: AppRoute) => {
   let className = 'near-places';

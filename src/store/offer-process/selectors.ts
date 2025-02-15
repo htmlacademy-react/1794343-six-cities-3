@@ -1,4 +1,4 @@
-import { NameSpace } from '../../const';
+import { NameSpace } from '../../helpers/const';
 import { State } from '../types';
 
 export const getCurrentOffer = (state: State) => state[NameSpace.Offer].currentOffer;

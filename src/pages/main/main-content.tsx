@@ -1,10 +1,10 @@
 import { useState, useCallback, useMemo } from 'react';
-import { OfferType } from '../../components/offer-card/types';
+import { OfferType } from '../../helpers/types.ts';
 import OffersList from '../../components/offers-list';
 import Map from '../../components/map.tsx';
 import SortingForm from './sorting-form.tsx';
-import { isPlural } from '../util.ts';
-import { SortingOption } from './const.ts';
+import { isPlural } from '../helpers.ts';
+import { SortingOption } from './util.ts';
 import { getSortingOffers } from './util.ts';
 
 type MainContentProps = {
@@ -45,12 +45,10 @@ function MainContent({currentOffers, currentCity}: MainContentProps): JSX.Elemen
         </div>
       </section>
       <div className="cities__right-section">
-        <section className="cities__map map">
-          <Map
-            offers={currentOffers}
-            activeOffer={activeOffer}
-          />
-        </section>
+        <Map
+          offers={currentOffers}
+          activeOffer={activeOffer}
+        />
       </div>
     </div>);
 }

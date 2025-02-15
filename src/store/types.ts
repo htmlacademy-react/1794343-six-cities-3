@@ -1,6 +1,6 @@
 import { store } from '.';
-import { FavoritesStatus } from '../components/favorite-button/const';
-import { OfferType } from '../components/offer-card/types';
+import { OfferType } from '../helpers/types';
+import { FavoritesStatus } from '../components/favorite-button/util';
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

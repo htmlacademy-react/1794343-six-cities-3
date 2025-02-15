@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { memo } from 'react';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../helpers/const';
 
 const HeaderLogo = memo((): JSX.Element => (
   <div className="header__left">

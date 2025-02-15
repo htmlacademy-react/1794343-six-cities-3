@@ -1,19 +1,19 @@
 import { memo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../helpers/const';
 import { getOfferCardState } from './util';
-import { OfferType } from './types';
-import { makeFirstCharBig } from '../../pages/util';
-import { getRating } from '../../pages/util';
+import { OfferType } from '../../helpers/types';
+import { makeFirstCharBig } from '../../pages/helpers';
+import { getRating } from '../../pages/helpers';
 import FavoriteButton from '../favorite-button';
-import { FavoriteButtonPlace } from '../favorite-button/const';
+import { FavoriteButtonPlace } from '../favorite-button/util';
 
-type CardProps = {
+type OfferCardProps = {
   offer: OfferType;
   handleMouseHover?: (offer?: OfferType) => void;
 }
 
-const OfferCard = memo(({offer, handleMouseHover}: CardProps): JSX.Element => {
+const OfferCard = memo(({offer, handleMouseHover}: OfferCardProps): JSX.Element => {
   const {pathname} = useLocation();
   const {className, classNameInfo, width, height} = getOfferCardState(pathname as AppRoute);
   const navigate = useNavigate();

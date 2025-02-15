@@ -3,6 +3,7 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
+  NotFound = '*'
 }
 
 export enum AuthorizationStatus {
@@ -26,3 +27,7 @@ export enum NameSpace {
   Reviews = 'REVIEWS',
   User = 'USER',
 }
+
+export const cities = [
+  'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'
+];

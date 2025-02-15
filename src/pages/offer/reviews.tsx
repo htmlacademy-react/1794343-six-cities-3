@@ -1,18 +1,22 @@
 import dayjs from 'dayjs';
 import { memo } from 'react';
-import { isPlural, changeDateFormat } from '../util';
-import { REVIEWS_SHOWN_COUNT, DateFormat } from './const';
-import { getRating } from '../util';
+import { isPlural, changeDateFormat } from '../helpers';
+import { REVIEWS_SHOWN_COUNT, DateFormat } from './util';
+import { getRating } from '../helpers';
 import { useAppSelector } from '../../hooks/use-store';
-import { getReviews } from '../../store/reviews/selectors';
+import { getReviews } from '../../store/reviews-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AuthorizationStatus } from '../../helpers/const';
+import ReviewForm from './review-form';
 
 const Reviews = memo((): JSX.Element => {
   const reviews = useAppSelector(getReviews);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const filteredReviews = [...reviews].sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
   const shownReviews = filteredReviews.slice(0, REVIEWS_SHOWN_COUNT);
 
   return (
-    <>
+    <section className="offer__reviews reviews">
       <h2 className="reviews__title">
         {`Review${isPlural(reviews.length) ? 's' : ''}`} &middot;
         <span className="reviews__amount">{reviews.length}</span>
@@ -56,7 +60,10 @@ const Reviews = memo((): JSX.Element => {
             </li>);
         })}
       </ul>
-    </>
+      {authorizationStatus === AuthorizationStatus.Auth ? (
+        <ReviewForm />
+      ) : null}
+    </section>
   );
 });
 

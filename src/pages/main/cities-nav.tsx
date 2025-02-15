@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { cities } from './const';
-import { NavLink, useSearchParams } from 'react-router-dom';
-
+import { cities } from '../../helpers/const';
+import { useSearchParams } from 'react-router-dom';
+import LocationsItem from '../../components/locations-item';
 
 const CitiesNav = memo((): JSX.Element => {
   const [searchParams] = useSearchParams();
@@ -12,16 +12,11 @@ const CitiesNav = memo((): JSX.Element => {
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {cities.map((city) => (
-            <li className="locations__item" key={city}>
-              <NavLink
-                className={city === currentCity
-                  ? 'locations__item-link tabs__item tabs__item--active'
-                  : 'locations__item-link tabs__item'}
-                to={`/?city=${city}`}
-              >
-                <span>{city}</span>
-              </NavLink>
-            </li>
+            <LocationsItem
+              key={city}
+              city={city}
+              currentCity={currentCity}
+            />
           ))}
         </ul>
       </section>

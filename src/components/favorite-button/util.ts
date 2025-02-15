@@ -1,4 +1,13 @@
-import { FavoriteButtonPlace } from './const';
+export enum FavoriteButtonPlace {
+  PlaceCard = 'card',
+  OfferPage = 'offer'
+}
+
+export enum FavoritesStatus {
+  ADDED = 1,
+  DELETED = 0
+}
+
 
 const getFavoriteButtonState = (place: FavoriteButtonPlace) => {
 

@@ -1,4 +1,4 @@
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus } from '../../helpers/const';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 import { userProcess } from './user-process';
 

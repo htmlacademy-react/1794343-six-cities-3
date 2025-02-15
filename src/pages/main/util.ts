@@ -1,5 +1,11 @@
-import { OfferType } from '../../components/offer-card/types';
-import { SortingOption } from './const';
+import { OfferType } from '../../helpers/types';
+
+export enum SortingOption {
+  POPULAR = 'popular',
+  PRICE_INC = 'price: low to high',
+  PRICE_DEC = 'price: high to low',
+  TOP_RATED = 'top rated first'
+}
 
 export function filterOffersByCity(offers: OfferType[], city: string) {
   return offers.filter((offer) => offer.city.name === city);

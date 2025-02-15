@@ -1,12 +1,12 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../helpers/const';
 import { getLayoutState } from './util';
 import cn from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../hooks/use-store';
 import { logoutAction } from '../../store/api-actions';
 import HeaderLogo from './header-logo';
 import { getAuthorizationStatus, getAvatarURL, getEmail } from '../../store/user-process/selectors';
-import { getFavortiteOffers } from '../../store/favorites/selectors';
+import { getFavortiteOffers } from '../../store/favorites-process/selectors';
 
 function Layout(): JSX.Element {
   const {pathname} = useLocation();

@@ -10,10 +10,9 @@ import {
   ChangeFavoriteResponse,
   UserDataResponse} from './types';
 
-import { APIRoute } from '../const';
-import { OfferType } from '../components/offer-card/types';
+import { APIRoute } from '../helpers/const';
+import { OfferType, ReviewType } from '../helpers/types';
 import { saveToken, dropToken } from '../services/token';
-import { ReviewType } from '../pages/offer/types';
 
 export const checkAuthAction = createAsyncThunk<UserDataResponse, undefined, {
   dispatch: AppDispatch;
@@ -63,6 +62,18 @@ export const fetchOffersAction = createAsyncThunk<OfferType[], undefined, {
   },
 );
 
+export const fetchReviewsAction = createAsyncThunk<ReviewType[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'reviews/loadReviews',
+  async (currentOfferId, { extra: api}) => {
+    const {data} = await api.get<ReviewType[]>(`${APIRoute.Reviews}/${currentOfferId}`);
+    return data;
+  },
+);
+
 export const addReviewAction = createAsyncThunk<ReviewType, ReviewData, {
   dispatch: AppDispatch;
   state: State;
@@ -99,24 +110,12 @@ export const fetchNearOffersAction = createAsyncThunk<OfferType[], string, {
   },
 );
 
-export const fetchReviewsAction = createAsyncThunk<ReviewType[], string, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'reviews/loadReviews',
-  async (currentOfferId, { extra: api}) => {
-    const {data} = await api.get<ReviewType[]>(`${APIRoute.Reviews}/${currentOfferId}`);
-    return data;
-  },
-);
-
 export const fetchFavoriteOffersAction = createAsyncThunk<OfferType[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'favorites/loadOffers',
+  'favorites/loadFavoriteOffers',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<OfferType[]>(APIRoute.Favorite);
     return data;

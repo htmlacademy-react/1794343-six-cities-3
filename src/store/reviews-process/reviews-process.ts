@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
-import { ReviewType } from '../../pages/offer/types';
+import { NameSpace } from '../../helpers/const';
+import { ReviewType } from '../../helpers/types';
 import { fetchReviewsAction, addReviewAction } from '../api-actions';
 
 type InitialState = {
@@ -30,6 +30,7 @@ export const reviewsProcess = createSlice({
       })
       .addCase(addReviewAction.fulfilled, (state, action) => {
         state.isReviewSending = false;
+        state.isReviewSendingError = false;
         state.reviews.push(action.payload);
       })
       .addCase(addReviewAction.rejected, (state) => {

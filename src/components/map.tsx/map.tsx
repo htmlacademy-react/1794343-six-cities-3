@@ -1,10 +1,11 @@
-import { memo } from 'react';
 import {useRef, useEffect} from 'react';
+import { useLocation } from 'react-router-dom';
 import leaflet, { LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
-import { OfferType } from '../offer-card/types';
-import { IconSetting } from './const';
+import { OfferType } from '../../helpers/types';
+import { IconSetting, getMapState } from './util';
+import { AppRoute } from '../../helpers/const';
 
 type MapProps = {
   offers: OfferType[];
@@ -23,10 +24,14 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [IconSetting.ICON_ANCHOR, IconSetting.ICON_HEIGHT]
 });
 
-const Map = memo(({offers, activeOffer}: MapProps): JSX.Element => {
+function Map ({offers, activeOffer}: MapProps): JSX.Element {
+
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef, offers[0]);
   const markerLayer = useRef<LayerGroup>(leaflet.layerGroup());
+
+  const {pathname} = useLocation();
+  const {className} = getMapState(pathname as AppRoute);
 
   useEffect(() => {
     if (map) {
@@ -59,14 +64,13 @@ const Map = memo(({offers, activeOffer}: MapProps): JSX.Element => {
   }, [map, offers, activeOffer]);
 
   return (
-    <div
-      style={{height: '100%'}}
+    <section
+      className={`${className}__map map`}
       ref={mapRef}
     >
-    </div>
-  );
-});
+    </section>
 
-Map.displayName = 'Map';
+  );
+}
 
 export default Map;

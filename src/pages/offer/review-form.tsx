@@ -1,10 +1,12 @@
 import React, { FormEvent, useState, ChangeEvent, memo } from 'react';
-import { ReviewRating } from './const';
+import { ReviewRating } from './util';
 import { useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import { addReviewAction } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getisReviewSending, getisReviewSendingError } from '../../store/reviews/selectors';
+import { getisReviewSending, getisReviewSendingError } from '../../store/reviews-process/selectors';
+import {toast} from 'react-toastify';
+
 
 const ReviewForm = memo((): JSX.Element => {
   const ratings = Object.entries(ReviewRating);
@@ -27,6 +29,12 @@ const ReviewForm = memo((): JSX.Element => {
       }));
     }
   };
+
+  useEffect(() => {
+    if (isReviewSendingError) {
+      toast.error('Error sending feedback. Please try again.');
+    }
+  }, [isReviewSendingError]);
 
   useEffect(() => {
     if (!isReviewSendingError && !isReviewSending) {

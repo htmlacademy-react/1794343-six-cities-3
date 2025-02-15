@@ -1,13 +1,12 @@
 import {Helmet} from 'react-helmet-async';
-import { Link } from 'react-router-dom';
 import OffersList from '../../components/offers-list';
 import FavoritesEmpty from './favorites-empty';
 import cn from 'classnames';
 import { filterOffersByCity } from '../main/util';
-import { cities } from '../main/const';
-import { AppRoute } from '../../const';
+import { cities } from '../../helpers/const';
 import { useAppSelector } from '../../hooks/use-store';
-import { getFavortiteOffers } from '../../store/favorites/selectors';
+import { getFavortiteOffers } from '../../store/favorites-process/selectors';
+import LocationsItem from '../../components/locations-item';
 
 function Favorites(): JSX.Element {
   const offers = useAppSelector(getFavortiteOffers);
@@ -41,14 +40,9 @@ function Favorites(): JSX.Element {
                         key = {city}
                       >
                         <div className="favorites__locations locations locations--current">
-                          <div className="locations__item">
-                            <Link
-                              className="locations__item-link"
-                              to={`${AppRoute.Root}?city=${city}`}
-                            >
-                              <span>{city}</span>
-                            </Link>
-                          </div>
+                          <LocationsItem
+                            city={city}
+                          />
                         </div>
                         <div className="favorites__places">
                           <OffersList offers={filteredOffers}/>

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
-import { OfferType } from '../../components/offer-card/types';
+import { NameSpace } from '../../helpers/const';
+import { OfferType } from '../../helpers/types';
 import { fetchFavoriteOffersAction, fetchChangeFavorite } from '../api-actions';
-import { FavoritesStatus } from '../../components/favorite-button/const';
+import { FavoritesStatus } from '../../components/favorite-button/util';
 import { logoutAction } from '../api-actions';
 
 type InitialState = {
